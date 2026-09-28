@@ -1,0 +1,2133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Skolix</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap');
+
+:root{
+  --bg:#141317;
+  --bg-deep:#0e0d10;
+  --surface:#1c1b20;
+  --surface-2:#24232a;
+  --surface-3:#2c2b33;
+  --border:#332f36;
+  --border-soft:#28262d;
+  --text:#f3f0ec;
+  --text-dim:#a7a3ad;
+  --text-faint:#726e7a;
+  --red:#a83b4a;
+  --red-bright:#c24a5a;
+  --red-soft:rgba(168,59,74,0.16);
+  --red-soft-2:rgba(168,59,74,0.32);
+  --gold:#c9a455;
+  --gold-bright:#ddbd76;
+  --gold-soft:rgba(201,164,85,0.16);
+  --gold-soft-2:rgba(201,164,85,0.34);
+  --radius-lg:20px;
+  --radius-md:14px;
+  --radius-sm:10px;
+  --shadow:0 8px 24px rgba(0,0,0,0.35);
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html,body{margin:0;padding:0;}
+body{
+  background:var(--bg-deep);
+  font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+  color:var(--text);
+  display:flex;
+  justify-content:center;
+  min-height:100vh;
+}
+h1,h2,h3,h4,.display{font-family:'Space Grotesk',sans-serif;}
+button{font-family:inherit;}
+::-webkit-scrollbar{width:0;height:0;}
+
+#phone{
+  width:100%;
+  max-width:430px;
+  min-height:100vh;
+  background:var(--bg);
+  position:relative;
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+  border-left:1px solid var(--border-soft);
+  border-right:1px solid var(--border-soft);
+}
+@media(min-width:431px){
+  body{padding:28px 0;}
+  #phone{min-height:844px; max-height:844px; border-radius:36px; box-shadow:0 30px 80px rgba(0,0,0,0.6); border:1px solid var(--border);}
+}
+
+/* ---------- Top bar ---------- */
+.topbar{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:16px 18px 12px 18px;
+  flex-shrink:0;
+}
+.brand{display:flex;align-items:center;gap:10px;}
+.brand-mark{
+  width:34px;height:34px;border-radius:10px;
+  background:linear-gradient(150deg,var(--gold) 0%, var(--red) 130%);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Space Grotesk';font-weight:700;font-size:15px;color:#141317;
+  flex-shrink:0;
+}
+.brand-text .name{font-family:'Space Grotesk';font-weight:700;font-size:16.5px;letter-spacing:0.2px;}
+.brand-text .school{font-size:11.5px;color:var(--text-faint);margin-top:1px;}
+.topbar-actions{display:flex;align-items:center;gap:8px;}
+.icon-btn{
+  width:38px;height:38px;border-radius:12px;background:var(--surface);
+  border:1px solid var(--border-soft);
+  display:flex;align-items:center;justify-content:center;
+  color:var(--text-dim);cursor:pointer;position:relative;
+}
+.icon-btn:active{background:var(--surface-2);}
+.dot{position:absolute;top:8px;right:8px;width:7px;height:7px;border-radius:50%;background:var(--red-bright);border:1.5px solid var(--bg);}
+.avatar{
+  width:38px;height:38px;border-radius:12px;
+  background:var(--surface-2);border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Space Grotesk';font-weight:600;font-size:13px;color:var(--gold-bright);
+  cursor:pointer;
+}
+
+/* ---------- Content ---------- */
+#content{flex:1;overflow-y:auto;padding:4px 18px 100px 18px;}
+.section-title{font-family:'Space Grotesk';font-weight:600;font-size:13px;color:var(--text-faint);margin:22px 0 10px 2px;letter-spacing:0.1px;}
+.section-title:first-child{margin-top:6px;}
+.row-between{display:flex;align-items:center;justify-content:space-between;}
+
+/* ---------- Cards ---------- */
+.card{
+  background:var(--surface);
+  border:1px solid var(--border-soft);
+  border-radius:var(--radius-lg);
+  padding:16px;
+  margin-bottom:12px;
+}
+.card-tight{padding:13px 14px;}
+.hero-card{
+  background:linear-gradient(155deg, var(--surface-2) 0%, var(--surface) 65%);
+  border:1px solid var(--border);
+  border-radius:var(--radius-lg);
+  padding:20px;
+  position:relative;
+  overflow:hidden;
+}
+.hero-card::after{
+  content:'';position:absolute;top:-40%;right:-20%;width:180px;height:180px;
+  background:radial-gradient(circle, var(--gold-soft) 0%, transparent 70%);
+}
+.greeting{font-size:12.5px;color:var(--text-faint);}
+.greeting-name{font-family:'Space Grotesk';font-size:21px;font-weight:600;margin-top:2px;}
+.stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px;}
+.stat-box{background:var(--surface-3);border-radius:var(--radius-md);padding:12px;border:1px solid var(--border-soft);}
+.stat-num{font-family:'Space Grotesk';font-size:19px;font-weight:700;}
+.stat-label{font-size:11px;color:var(--text-faint);margin-top:2px;}
+
+.quick-row{display:flex;gap:9px;overflow-x:auto;margin-top:2px;padding-bottom:2px;}
+.quick-chip{
+  flex-shrink:0;display:flex;flex-direction:column;align-items:center;gap:7px;
+  background:var(--surface);border:1px solid var(--border-soft);border-radius:var(--radius-md);
+  padding:12px 16px;min-width:78px;cursor:pointer;
+}
+.quick-chip:active{background:var(--surface-2);}
+.quick-chip .qi{width:34px;height:34px;border-radius:10px;display:flex;align-items:center;justify-content:center;}
+.quick-chip span{font-size:11px;color:var(--text-dim);text-align:center;line-height:1.25;}
+
+.list-item{
+  display:flex;align-items:center;gap:12px;padding:12px 0;
+  border-bottom:1px solid var(--border-soft);
+}
+.list-item:last-child{border-bottom:none;}
+.li-icon{
+  width:38px;height:38px;border-radius:11px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+}
+.li-body{flex:1;min-width:0;}
+.li-title{font-size:13.5px;font-weight:600;}
+.li-sub{font-size:11.5px;color:var(--text-faint);margin-top:2px;}
+.li-meta{font-size:11px;color:var(--text-faint);text-align:right;flex-shrink:0;}
+
+.badge{
+  display:inline-flex;align-items:center;gap:5px;
+  font-size:10.5px;font-weight:600;padding:3px 9px;border-radius:100px;
+  font-family:'Inter';
+}
+.badge-gold{background:var(--gold-soft);color:var(--gold-bright);}
+.badge-red{background:var(--red-soft);color:var(--red-bright);}
+.badge-neutral{background:var(--surface-3);color:var(--text-dim);}
+.badge-green{background:rgba(120,168,120,0.16);color:#9ec89e;}
+
+.btn{
+  display:flex;align-items:center;justify-content:center;gap:7px;
+  padding:13px 16px;border-radius:13px;border:none;cursor:pointer;
+  font-weight:600;font-size:13.5px;font-family:'Inter';
+}
+.btn-primary{background:linear-gradient(120deg,var(--gold) 0%, #b88d3f 100%);color:#1a1710;}
+.btn-primary:active{filter:brightness(0.94);}
+.btn-outline{background:transparent;border:1px solid var(--border);color:var(--text);}
+.btn-outline:active{background:var(--surface-2);}
+.btn-danger-outline{background:var(--red-soft);border:1px solid var(--red-soft-2);color:var(--red-bright);}
+.btn-block{width:100%;}
+.btn-sm{padding:8px 12px;font-size:12px;border-radius:10px;}
+
+/* ---------- Tabs / segments ---------- */
+.seg{display:flex;background:var(--surface);border:1px solid var(--border-soft);border-radius:13px;padding:3px;gap:2px;}
+.seg-item{flex:1;text-align:center;padding:8px 6px;border-radius:10px;font-size:12.5px;font-weight:600;color:var(--text-faint);cursor:pointer;}
+.seg-item.active{background:var(--surface-3);color:var(--text);}
+.chip-row{display:flex;gap:8px;overflow-x:auto;margin:14px 0 4px 0;}
+.chip{flex-shrink:0;padding:7px 13px;border-radius:100px;background:var(--surface);border:1px solid var(--border-soft);font-size:12px;font-weight:600;color:var(--text-dim);cursor:pointer;}
+.chip.active{background:var(--gold-soft);color:var(--gold-bright);border-color:var(--gold-soft-2);}
+
+/* ---------- Bottom nav ---------- */
+.bottomnav{
+  position:absolute;bottom:0;left:0;right:0;
+  display:flex;background:rgba(28,27,32,0.94);backdrop-filter:blur(10px);
+  border-top:1px solid var(--border-soft);
+  padding:9px 6px calc(9px + env(safe-area-inset-bottom,0px)) 6px;
+}
+.nav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;padding:5px 0;cursor:pointer;color:var(--text-faint);}
+.nav-item.active{color:var(--gold-bright);}
+.nav-item span{font-size:10px;font-weight:600;}
+
+/* ---------- Overlay / modal ---------- */
+.overlay{
+  position:absolute;inset:0;background:rgba(10,9,11,0.66);
+  display:flex;align-items:flex-end;z-index:50;
+}
+.sheet{
+  width:100%;background:var(--surface);border-top-left-radius:24px;border-top-right-radius:24px;
+  padding:10px 18px 26px 18px;border:1px solid var(--border);border-bottom:none;
+  max-height:82%;overflow-y:auto;
+}
+.sheet-handle{width:36px;height:4px;background:var(--border);border-radius:10px;margin:6px auto 14px auto;}
+.sheet-title{font-family:'Space Grotesk';font-weight:600;font-size:17px;margin-bottom:14px;}
+textarea,input[type=text],input[type=date],select{
+  width:100%;background:var(--surface-3);border:1px solid var(--border);color:var(--text);
+  border-radius:12px;padding:12px 13px;font-size:13.5px;font-family:'Inter';margin-top:6px;
+}
+textarea{resize:none;min-height:88px;}
+label{font-size:12px;color:var(--text-dim);font-weight:600;}
+
+.toast{
+  position:absolute;bottom:96px;left:18px;right:18px;
+  background:var(--surface-3);border:1px solid var(--border);border-radius:14px;
+  padding:12px 15px;display:flex;align-items:center;gap:10px;
+  font-size:12.5px;font-weight:600;z-index:60;box-shadow:var(--shadow);
+  animation:toastin 0.22s ease;
+}
+@keyframes toastin{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+
+/* ---------- Auth screen ---------- */
+.auth-wrap{padding:38px 26px 26px 26px;height:100%;display:flex;flex-direction:column;}
+.auth-mark{width:58px;height:58px;border-radius:16px;background:linear-gradient(150deg,var(--gold) 0%, var(--red) 130%);display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk';font-weight:700;font-size:24px;color:#141317;margin-bottom:20px;}
+.auth-title{font-family:'Space Grotesk';font-size:26px;font-weight:700;line-height:1.15;}
+.auth-sub{font-size:13.5px;color:var(--text-faint);margin-top:8px;line-height:1.5;}
+.role-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px;}
+.role-card{
+  border:1px solid var(--border-soft);background:var(--surface);border-radius:var(--radius-md);
+  padding:14px 12px;cursor:pointer;display:flex;flex-direction:column;gap:8px;
+}
+.role-card.active{border-color:var(--gold-soft-2);background:var(--gold-soft);}
+.role-card .ri{width:30px;height:30px;border-radius:9px;display:flex;align-items:center;justify-content:center;background:var(--surface-3);}
+.role-card.active .ri{background:rgba(0,0,0,0.18);color:var(--gold-bright);}
+.role-card .rn{font-size:13px;font-weight:600;}
+.role-card .rd{font-size:10.5px;color:var(--text-faint);}
+
+/* ---------- Discovery / public pages ---------- */
+.discover-wrap{padding:22px 18px 26px 18px;}
+.discover-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;}
+.discover-brand{display:flex;align-items:center;gap:10px;}
+.discover-signin{font-size:12px;font-weight:700;color:var(--gold-bright);cursor:pointer;padding:8px 4px;}
+.discover-head{margin-bottom:16px;}
+.discover-head h1{font-size:21px;font-weight:700;line-height:1.25;margin:0;}
+.discover-head p{font-size:12.5px;color:var(--text-faint);margin:6px 0 0 0;line-height:1.5;}
+.search-bar{
+  display:flex;align-items:center;gap:9px;background:var(--surface);border:1px solid var(--border);
+  border-radius:14px;padding:12px 14px;color:var(--text-faint);
+}
+.search-bar input{background:transparent;border:none;padding:0;margin:0;color:var(--text);flex:1;font-size:13.5px;}
+.search-bar input::placeholder{color:var(--text-faint);}
+.search-bar input:focus{outline:none;}
+
+.school-card{
+  background:var(--surface);border:1px solid var(--border-soft);border-radius:var(--radius-lg);
+  overflow:hidden;margin-bottom:14px;cursor:pointer;
+}
+.school-card:active{background:var(--surface-2);}
+.school-cover{height:64px;position:relative;}
+.school-card-body{padding:14px 16px 16px 16px;display:flex;gap:12px;align-items:flex-start;margin-top:-26px;}
+.school-avatar{
+  width:52px;height:52px;border-radius:15px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Space Grotesk';font-weight:700;font-size:19px;color:#17151b;
+  border:3px solid var(--surface);box-shadow:0 4px 10px rgba(0,0,0,0.3);
+}
+.school-info{flex:1;min-width:0;padding-top:4px;}
+.school-name{font-family:'Space Grotesk';font-weight:700;font-size:15px;}
+.school-loc{display:flex;align-items:center;gap:5px;font-size:11.5px;color:var(--text-faint);margin-top:3px;}
+.school-tags{display:flex;gap:6px;margin-top:9px;flex-wrap:wrap;}
+.view-school-btn{
+  margin:0 16px 16px 16px;display:flex;align-items:center;justify-content:center;gap:6px;
+  padding:10px;border-radius:11px;background:var(--surface-3);border:1px solid var(--border);
+  font-size:12.5px;font-weight:700;color:var(--text);
+}
+
+/* public school page */
+.pub-cover{height:132px;border-radius:0 0 22px 22px;position:relative;margin:0 -18px;}
+.pub-topbar{position:absolute;top:16px;left:18px;right:18px;display:flex;justify-content:space-between;align-items:center;}
+.pub-header{padding:0 2px;margin-top:-34px;position:relative;}
+.pub-avatar{
+  width:70px;height:70px;border-radius:18px;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Space Grotesk';font-weight:700;font-size:26px;color:#17151b;
+  border:4px solid var(--bg);box-shadow:0 6px 14px rgba(0,0,0,0.35);
+}
+.pub-name-row{display:flex;align-items:center;gap:8px;margin-top:10px;}
+.pub-name{font-family:'Space Grotesk';font-weight:700;font-size:20px;}
+.verified-badge{display:flex;align-items:center;gap:3px;background:var(--gold-soft);color:var(--gold-bright);padding:2px 7px;border-radius:100px;font-size:9.5px;font-weight:700;}
+.pub-loc{display:flex;align-items:center;gap:5px;font-size:12px;color:var(--text-faint);margin-top:5px;}
+.pub-stats{display:flex;gap:16px;margin-top:12px;}
+.pub-stat{font-size:11.5px;color:var(--text-faint);}
+.pub-stat b{color:var(--text);font-family:'Space Grotesk';font-size:13px;display:block;}
+.join-bar{
+  display:flex;gap:10px;margin-top:16px;
+}
+.signin-link{text-align:center;font-size:12px;color:var(--text-faint);margin-top:12px;}
+.signin-link b{color:var(--gold-bright);cursor:pointer;font-weight:700;}
+
+.photo-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:2px;}
+.photo-tile{border-radius:var(--radius-md);aspect-ratio:1.15;position:relative;overflow:hidden;display:flex;align-items:flex-end;padding:10px;}
+.photo-tile::before{content:'';position:absolute;inset:0;background:linear-gradient(0deg,rgba(0,0,0,0.55) 0%, transparent 55%);}
+.photo-caption{position:relative;font-size:11px;font-weight:600;color:#fff;}
+
+.verify-wrap{padding:60px 26px 26px 26px;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;}
+.spinner{width:44px;height:44px;border-radius:50%;border:3px solid var(--surface-3);border-top-color:var(--gold-bright);animation:spin 0.8s linear infinite;margin-bottom:22px;}
+@keyframes spin{to{transform:rotate(360deg);}}
+
+/* ring */
+.ring-wrap{position:relative;width:84px;height:84px;flex-shrink:0;}
+.ring-wrap svg{transform:rotate(-90deg);}
+.ring-label{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+.ring-label .n{font-family:'Space Grotesk';font-weight:700;font-size:17px;}
+.ring-label .p{font-size:9px;color:var(--text-faint);}
+
+.empty{text-align:center;padding:34px 10px;color:var(--text-faint);}
+.empty .ei{width:44px;height:44px;border-radius:14px;background:var(--surface-2);display:flex;align-items:center;justify-content:center;margin:0 auto 12px auto;}
+.empty p{font-size:12.5px;margin:0;}
+
+.grade-bar-track{height:7px;background:var(--surface-3);border-radius:8px;overflow:hidden;}
+.grade-bar-fill{height:100%;border-radius:8px;}
+
+.msg-bubble{max-width:78%;padding:10px 13px;border-radius:16px;font-size:13px;line-height:1.4;margin-bottom:8px;}
+.msg-them{background:var(--surface-3);border-bottom-left-radius:5px;align-self:flex-start;}
+.msg-me{background:var(--gold-soft);color:var(--text);border-bottom-right-radius:5px;align-self:flex-end;}
+.msg-time{font-size:9.5px;color:var(--text-faint);margin-top:2px;}
+
+.divider{height:1px;background:var(--border-soft);margin:14px 0;}
+
+.attend-toggle{display:flex;gap:6px;}
+.att-opt{padding:6px 10px;border-radius:9px;font-size:11px;font-weight:700;cursor:pointer;border:1px solid transparent;}
+.att-opt.present{color:#9ec89e;}
+.att-opt.present.sel{background:rgba(120,168,120,0.18);border-color:rgba(120,168,120,0.3);}
+.att-opt.absent{color:var(--red-bright);}
+.att-opt.absent.sel{background:var(--red-soft);border-color:var(--red-soft-2);}
+.att-opt.late{color:var(--gold-bright);}
+.att-opt.late.sel{background:var(--gold-soft);border-color:var(--gold-soft-2);}
+
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-top:10px;}
+.cal-dow{text-align:center;font-size:10px;color:var(--text-faint);font-weight:700;padding-bottom:4px;}
+.cal-cell{aspect-ratio:1;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:10px;font-size:11.5px;cursor:pointer;position:relative;color:var(--text-dim);}
+.cal-cell.pad{visibility:hidden;}
+.cal-cell.today{border:1px solid var(--gold-soft-2);}
+.cal-cell.sel{background:var(--surface-3);color:var(--text);font-weight:700;}
+.cal-dots{display:flex;gap:2px;margin-top:2px;}
+.cal-dots span{width:4px;height:4px;border-radius:50%;}
+
+.hub-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:4px;}
+.hub-card{background:var(--surface);border:1px solid var(--border-soft);border-radius:var(--radius-lg);padding:16px;cursor:pointer;min-height:118px;display:flex;flex-direction:column;justify-content:space-between;}
+.hub-card:active{background:var(--surface-2);}
+.hub-card .hi{width:36px;height:36px;border-radius:11px;display:flex;align-items:center;justify-content:center;}
+.hub-card .ht{font-size:13.5px;font-weight:700;margin-top:10px;}
+.hub-card .hs{font-size:10.5px;color:var(--text-faint);margin-top:2px;}
+
+.subheader{display:flex;align-items:center;gap:12px;padding:14px 0 4px 0;}
+.back-btn{width:34px;height:34px;border-radius:11px;background:var(--surface);border:1px solid var(--border-soft);display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;}
+.subheader-title{font-family:'Space Grotesk';font-weight:700;font-size:18px;}
+
+.toggle-pill{display:flex;align-items:center;gap:6px;padding:7px 13px;border-radius:100px;font-size:11.5px;font-weight:700;cursor:pointer;flex-shrink:0;}
+.toggle-on{background:var(--gold-soft);color:var(--gold-bright);}
+.toggle-off{background:var(--surface-3);color:var(--text-faint);}
+.banner-report{display:flex;align-items:center;gap:8px;background:var(--red-soft);border:1px solid var(--red-soft-2);color:var(--red-bright);padding:10px 12px;border-radius:12px;font-size:11.5px;font-weight:600;margin-bottom:10px;}
+.cal-legend{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px;}
+.cal-legend-item{display:flex;align-items:center;gap:5px;font-size:10.5px;color:var(--text-faint);}
+.cal-legend-item span{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
+.cal-nav{display:flex;align-items:center;gap:8px;}
+</style>
+</head>
+<body>
+<div id="phone"></div>
+
+<script>
+/* ============================= ICONS ============================= */
+const ICON = {
+  home:'<path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/>',
+  calendar:'<rect x="3.5" y="5" width="17" height="16" rx="3"/><path d="M8 3v4M16 3v4M3.5 10h17"/>',
+  book:'<path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15.5H6.5A2.5 2.5 0 0 0 4 21"/><path d="M4 5.5V19a2.5 2.5 0 0 0 2.5 2.5H20"/>',
+  shield:'<path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"/><path d="m9 12 2 2 4-4"/>',
+  grid:'<rect x="3.5" y="3.5" width="7" height="7" rx="1.6"/><rect x="13.5" y="3.5" width="7" height="7" rx="1.6"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.6"/><rect x="13.5" y="13.5" width="7" height="7" rx="1.6"/>',
+  bell:'<path d="M6 9a6 6 0 1 1 12 0c0 4 1.5 5.5 1.5 5.5H4.5S6 13 6 9z"/><path d="M10 19a2 2 0 0 0 4 0"/>',
+  chevRight:'<path d="m9 6 6 6-6 6"/>',
+  chevLeft:'<path d="m15 6-6 6 6 6"/>',
+  plus:'<path d="M12 5v14M5 12h14"/>',
+  x:'<path d="M6 6l12 12M18 6 6 18"/>',
+  check:'<path d="M5 13l4 4L19 7"/>',
+  award:'<circle cx="12" cy="8" r="5"/><path d="M8.5 12.5 7 21l5-3 5 3-1.5-8.5"/>',
+  message:'<path d="M4 5h16v11H8l-4 4V5z"/>',
+  send:'<path d="m4 12 16-7-6 16-2.5-6.5L4 12z"/>',
+  users:'<circle cx="9" cy="8" r="3.2"/><path d="M3.5 19c0-3 2.5-5 5.5-5s5.5 2 5.5 5"/><circle cx="17" cy="9" r="2.6"/><path d="M15.5 13.6c2.3.3 4 2 4 4.4"/>',
+  clock:'<circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/>',
+  file:'<path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5"/>',
+  megaphone:'<path d="M3 10v4h3l7 4V6l-7 4H3z"/><path d="M18 9a4 4 0 0 1 0 6"/>',
+  star:'<path d="m12 3 2.6 5.9 6.4.6-4.8 4.3 1.4 6.3L12 17l-5.6 3.1 1.4-6.3-4.8-4.3 6.4-.6z"/>',
+  down:'<path d="M6 9l6 6 6-6"/>',
+  repeat:'<path d="M4 7h13l-3-3M20 17H7l3 3"/>',
+  logout:'<path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/>',
+  gpa:'<path d="M4 19V9M12 19V4M20 19v-7"/>',
+  building:'<rect x="4" y="3" width="16" height="18" rx="1.5"/><path d="M9 8h1M14 8h1M9 12h1M14 12h1M9 16h1M14 16h1"/>',
+  alert:'<path d="M12 9v4M12 17h.01"/><path d="M10.3 3.9 2.6 17a1.8 1.8 0 0 0 1.5 2.7h15.8a1.8 1.8 0 0 0 1.5-2.7L13.7 3.9a1.8 1.8 0 0 0-3.4 0z"/>',
+  cake:'<path d="M4 21v-6a3 3 0 0 1 3-3h10a3 3 0 0 1 3 3v6"/><path d="M4 17h16"/><path d="M9 12V8M12 12V6M15 12V8"/><circle cx="12" cy="3.4" r="1"/>',
+  search:'<circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/>',
+  pin:'<path d="M12 21s7-6.1 7-11.5A7 7 0 0 0 5 9.5C5 14.9 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.3"/>',
+  lock:'<rect x="5" y="10.5" width="14" height="9.5" rx="2.2"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/>',
+  trash:'<path d="M4.5 7h15"/><path d="M6.5 7l1 12.2A2 2 0 0 0 9.5 21h5a2 2 0 0 0 2-1.8L17.5 7"/><path d="M9.5 7V4.8a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1V7"/>',
+  flag:'<path d="M6 3v18"/><path d="M6 4.5h10.5l-2.2 3.75L16.5 12H6"/>',
+  camera:'<path d="M4 8.5A1.5 1.5 0 0 1 5.5 7h2l1-2h7l1 2h2A1.5 1.5 0 0 1 20 8.5v9A1.5 1.5 0 0 1 18.5 19h-13A1.5 1.5 0 0 1 4 17.5z"/><circle cx="12" cy="13" r="3.4"/>',
+  slider:'<path d="M4 7h9M17 7h3M4 17h3M11 17h9"/><circle cx="14" cy="7" r="2.2"/><circle cx="7" cy="17" r="2.2"/>',
+};
+function icon(name,size=18,stroke=1.9){
+  return `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="${stroke}" stroke-linecap="round" stroke-linejoin="round">${ICON[name]||''}</svg>`;
+}
+
+/* ============================= MOCK DATA ============================= */
+const DB = {
+  school:{ name:"Northbridge Academy", code:"NBA-2026", tagline:"Preschool – Grade 12 · Est. 1988", campus:"Middle School" },
+  schools:[
+    { id:"nba", name:"Northbridge Academy", location:"Portland, OR", tagline:"Preschool – Grade 12 · Est. 1988", code:"NBA-2026", students:"1,284", initial:"N", grad:"linear-gradient(135deg,#c9a455,#a83b4a)",
+      campuses:[
+        {id:"nba-pre",name:"Preschool",grades:"Ages 3–4"},
+        {id:"nba-lower",name:"Lower School",grades:"K–5"},
+        {id:"nba-middle",name:"Middle School",grades:"Grades 6–8"},
+        {id:"nba-upper",name:"Upper School",grades:"Grades 9–12"},
+      ]},
+    { id:"crc", name:"Cedar Ridge Schools", location:"Austin, TX", tagline:"Preschool – College", code:"CRC-8841", students:"2,150", initial:"C", grad:"linear-gradient(135deg,#ddbd76,#8a3040)",
+      campuses:[
+        {id:"crc-pre",name:"Preschool",grades:"Ages 3–4"},
+        {id:"crc-elem",name:"Elementary",grades:"K–5"},
+        {id:"crc-middle",name:"Middle School",grades:"Grades 6–8"},
+        {id:"crc-high",name:"High School",grades:"Grades 9–12"},
+        {id:"crc-college",name:"College",grades:"Undergraduate"},
+      ]},
+    { id:"mve", name:"Maple Valley Elementary", location:"Burlington, VT", tagline:"Kindergarten – Grade 5", code:"MVE-1190", students:"540", initial:"M", grad:"linear-gradient(135deg,#b88d3f,#c24a5a)",
+      campuses:[
+        {id:"mve-main",name:"Elementary",grades:"K–5"},
+      ]},
+  ],
+  publicContent:{
+    nba:{
+      news:[
+        {title:"New science wing opens this fall", body:"The Whitfield Science Center adds four new labs and a dedicated robotics workshop for grades 6–12.", date:"Sep 5"},
+        {title:"Northbridge named a Blue Ribbon finalist", body:"Recognized by the state board of education for outstanding academic growth over three years.", date:"Aug 22"},
+      ],
+      celebrations:[
+        {title:"Congratulations, Grade 8A!", body:"Highest average attendance across the school this month — 96%.", date:"2 days ago"},
+        {title:"Robotics club wins regionals", body:"The Northbridge robotics team took first place at the Pacific Northwest regional finals.", date:"Aug 30"},
+      ],
+      events:[
+        {title:"Fall Sports Day", body:"Join us on the main field for track and field events. Families welcome from 9 AM.", date:"Sep 19"},
+        {title:"Fall Open House", body:"Tour classrooms and meet teachers ahead of the new semester.", date:"Sep 24"},
+        {title:"Winter Music Recital", body:"An evening of performances from the music department, open to all families.", date:"Dec 12"},
+      ],
+      achievements:[
+        {title:"Regional Robotics Champions",date:"Aug 30",icon:"award"},
+        {title:"Blue Ribbon Finalist 2026",date:"Aug 22",icon:"star"},
+        {title:"State Debate Runner-Up",date:"May 14",icon:"award"},
+      ],
+      announcements:[
+        {title:"Library extended hours",body:"The library will stay open until 5:30 PM Monday through Thursday starting next week.",date:"3 days ago"},
+        {title:"New after-school pickup lane",body:"A dedicated pickup lane opens on Elm Street starting Monday to reduce congestion.",date:"1 week ago"},
+      ],
+      photos:[
+        {caption:"Fall Sports Day 2025",grad:"linear-gradient(135deg,#c9a455,#5b3a20)"},
+        {caption:"Science Fair",grad:"linear-gradient(135deg,#a83b4a,#3a1c22)"},
+        {caption:"Graduation 2025",grad:"linear-gradient(135deg,#ddbd76,#4a3a1c)"},
+        {caption:"Music Recital",grad:"linear-gradient(135deg,#8a3040,#c9a455)"},
+      ]
+    },
+    crc:{
+      news:[{title:"Cedar Ridge launches AP Capstone track",body:"A new two-year research pathway begins next semester for juniors and seniors.",date:"Sep 2"}],
+      celebrations:[{title:"Varsity soccer wins state semifinal",body:"Cedar Ridge advances to the state championship for the first time in a decade.",date:"Sep 6"}],
+      events:[{title:"College Fair",body:"Over 40 colleges and universities on campus for juniors and seniors.",date:"Oct 3"}],
+      achievements:[{title:"State Semifinalists — Soccer",date:"Sep 6",icon:"award"}],
+      announcements:[{title:"Parking lot resurfacing",body:"The north lot will be closed for resurfacing September 15–17.",date:"5 days ago"}],
+      photos:[{caption:"Homecoming 2025",grad:"linear-gradient(135deg,#ddbd76,#3a1c22)"},{caption:"Robotics Lab",grad:"linear-gradient(135deg,#a83b4a,#4a3a1c)"}]
+    },
+    mve:{
+      news:[{title:"Maple Valley adds a school garden",body:"Kindergarten and 1st grade classes will tend a new vegetable garden this fall.",date:"Sep 3"}],
+      celebrations:[{title:"100 days of reading!",body:"Every class reached their fall reading challenge goal.",date:"Sep 8"}],
+      events:[{title:"Fall Family Picnic",body:"Bring a blanket and join us on the playground lawn after school.",date:"Sep 20"}],
+      achievements:[],
+      announcements:[{title:"New crossing guard on Birch Ave",body:"A crossing guard will now be posted at Birch and 4th every morning.",date:"1 week ago"}],
+      photos:[{caption:"Garden Planting Day",grad:"linear-gradient(135deg,#c9a455,#2d3a20)"}]
+    }
+  },
+  people:{
+    director:{ name:"Amara Whitfield", title:"School Director", initials:"AW" },
+    manager:{ name:"Daniel Cho", title:"Operations Manager", initials:"DC" },
+    teacher:{ name:"Priya Nandakumar", title:"Grade 8A · Mathematics", initials:"PN" },
+    student:{ name:"Leo Martins", title:"Grade 8A · Student", initials:"LM" },
+    parent:{ name:"Sofia Martins", title:"Parent · Leo Martins", initials:"SM" }
+  },
+  roster:[
+    {id:1,name:"Leo Martins",status:"present"},
+    {id:2,name:"Ivy Chen",status:"present"},
+    {id:3,name:"Marcus Odei",status:"absent"},
+    {id:4,name:"Zara Haddad",status:"present"},
+    {id:5,name:"Noah Fitzgerald",status:"late"},
+    {id:6,name:"Priya Deshmukh",status:"present"},
+    {id:7,name:"Theo Baptiste",status:"present"},
+    {id:8,name:"Wren Sato",status:"absent"},
+  ],
+  attendanceHistory:[
+    {date:"Mon, Sep 8",status:"present"},
+    {date:"Tue, Sep 9",status:"present"},
+    {date:"Wed, Sep 10",status:"late"},
+    {date:"Thu, Sep 4",status:"present"},
+    {date:"Fri, Sep 5",status:"absent",reason:"Dentist appointment",approval:"approved"},
+  ],
+  classAttendance:[
+    {cls:"Grade 8A",pct:96},{cls:"Grade 8B",pct:91},{cls:"Grade 9A",pct:88},
+    {cls:"Grade 9B",pct:99},{cls:"Grade 10A",pct:78},
+  ],
+  schedule:{
+    Mon:[{t:"8:00–8:50",s:"Mathematics",r:"Rm 204",teacher:"P. Nandakumar"},{t:"9:00–9:50",s:"English",r:"Rm 118",teacher:"R. Osei"},{t:"10:00–10:50",s:"Science",r:"Lab 3",teacher:"M. Lindqvist"},{t:"11:10–12:00",s:"History",r:"Rm 220",teacher:"J. Alvarez"},{t:"1:00–1:50",s:"Art",r:"Studio 1",teacher:"C. Beaumont"}],
+    Tue:[{t:"8:00–8:50",s:"Science",r:"Lab 3",teacher:"M. Lindqvist"},{t:"9:00–9:50",s:"Mathematics",r:"Rm 204",teacher:"P. Nandakumar"},{t:"10:00–10:50",s:"PE",r:"Gym",teacher:"K. Ruiz"},{t:"11:10–12:00",s:"English",r:"Rm 118",teacher:"R. Osei"}],
+    Wed:[{t:"8:00–8:50",s:"History",r:"Rm 220",teacher:"J. Alvarez"},{t:"9:00–9:50",s:"Mathematics",r:"Rm 204",teacher:"P. Nandakumar"},{t:"10:00–10:50",s:"Music",r:"Rm 5",teacher:"F. Duarte"},{t:"11:10–12:00",s:"Science",r:"Lab 3",teacher:"M. Lindqvist"}],
+    Thu:[{t:"8:00–8:50",s:"English",r:"Rm 118",teacher:"R. Osei"},{t:"9:00–9:50",s:"Art",r:"Studio 1",teacher:"C. Beaumont"},{t:"10:00–10:50",s:"Mathematics",r:"Rm 204",teacher:"P. Nandakumar"},{t:"11:10–12:00",s:"PE",r:"Gym",teacher:"K. Ruiz"}],
+    Fri:[{t:"8:00–8:50",s:"Mathematics",r:"Rm 204",teacher:"P. Nandakumar"},{t:"9:00–9:50",s:"Science",r:"Lab 3",teacher:"M. Lindqvist"},{t:"10:00–10:50",s:"History",r:"Rm 220",teacher:"J. Alvarez"}],
+  },
+  homework:[
+    {id:1,subject:"Mathematics",teacher:"Priya Nandakumar",title:"Quadratic equations — problem set 4",description:"Complete problems 1–20 covering factoring and the quadratic formula. Show all working.",attachment:"Quadratics practice sheet.pdf",due:"Today, 11:59 PM",due_ts:"2026-09-10T23:59:00",status:"pending",urgent:true},
+    {id:2,subject:"Science",teacher:"M. Lindqvist",title:"Lab report: acid–base titration",description:"Write up the titration lab using the standard format: hypothesis, method, results, conclusion.",attachment:"Lab report template.docx",due:"Tomorrow",due_ts:"2026-09-11T23:59:00",status:"pending",urgent:false},
+    {id:3,subject:"English",teacher:"R. Osei",title:"Essay draft — 'Symbolism in Act II'",description:"First draft, 500–700 words. Focus on at least two symbols and their significance.",attachment:null,due:"Fri, Sep 12",due_ts:"2026-09-12T23:59:00",status:"submitted",urgent:false},
+    {id:4,subject:"History",teacher:"J. Alvarez",title:"Reading response — Ch. 9",description:"One-page response covering the causes of WWI discussed in Chapter 9.",attachment:null,due:"Mon, Sep 8",due_ts:"2026-09-08T23:59:00",status:"graded",grade:"A-",urgent:false},
+    {id:5,subject:"Art",teacher:"C. Beaumont",title:"Sketchbook — 3 studies",description:"Three still-life studies in graphite, minimum 20 minutes each.",attachment:null,due:"Wed, Sep 17",due_ts:"2026-09-17T23:59:00",status:"pending",urgent:false},
+  ],
+  tests:[
+    {id:1,subject:"Mathematics",title:"Unit 3 Test — Quadratics",date:"Mon, Sep 15",type:"Test"},
+    {id:2,subject:"Science",title:"Pop quiz — Periodic Table",date:"Thu, Sep 11",type:"Quiz"},
+    {id:3,subject:"History",title:"Midterm — World Wars",date:"Fri, Sep 26",type:"Exam"},
+  ],
+  worksheets:[
+    {id:1,subject:"Mathematics",title:"Factoring practice sheet",size:"240 KB"},
+    {id:2,subject:"English",title:"Grammar review — clauses",size:"180 KB"},
+    {id:3,subject:"Science",title:"Periodic table reference",size:"320 KB"},
+  ],
+  grades:[
+    {subject:"Mathematics",score:91,letter:"A-",trend:"up"},
+    {subject:"Science",score:87,letter:"B+",trend:"up"},
+    {subject:"English",score:94,letter:"A",trend:"flat"},
+    {subject:"History",score:82,letter:"B",trend:"down"},
+    {subject:"Art",score:97,letter:"A+",trend:"flat"},
+  ],
+  reportCard:{ term:"Term 1, 2026", gpa:"3.7", rank:"6 of 118", comment:"Leo shows strong analytical thinking in mathematics and consistently contributes to class discussion. Continue focused review before the history midterm." },
+  achievements:[
+    {title:"Science Fair — 1st Place",date:"Sep 2",icon:"award"},
+    {title:"Perfect Attendance — August",date:"Sep 1",icon:"shield"},
+    {title:"Reader of the Month",date:"Aug 20",icon:"star"},
+  ],
+  behavior:[
+    {type:"positive",note:"Helped organize the class recycling initiative.",by:"Ms. Nandakumar",date:"Sep 8"},
+    {type:"positive",note:"Excellent teamwork during the science lab.",by:"M. Lindqvist",date:"Sep 4"},
+    {type:"improvement",note:"Please arrive on time to first period.",by:"Ms. Nandakumar",date:"Aug 29"},
+  ],
+  announcements:[
+    {id:1,cat:"urgent",title:"Early dismissal — Friday, Sep 12",body:"All students will be dismissed at 1:00 PM for staff development. Buses adjusted accordingly.",author:"Front Office",date:"2h ago"},
+    {id:2,cat:"event",title:"Fall Sports Day",body:"Join us on the main field for track and field events. Families welcome from 9 AM.",author:"Athletics Dept.",date:"Yesterday"},
+    {id:3,cat:"celebration",title:"Congratulations, Grade 8A!",body:"Highest average attendance across the school this month — 96%.",author:"Amara Whitfield",date:"2 days ago"},
+    {id:4,cat:"general",title:"Library extended hours",body:"The library will stay open until 5:30 PM Monday through Thursday starting next week.",author:"Front Office",date:"3 days ago"},
+  ],
+  calendarEvents:{
+    "2026-09-10":[{t:"Math homework due",cat:"assignment"}],
+    "2026-09-11":[{t:"Science pop quiz",cat:"exam"}],
+    "2026-09-12":[{t:"Essay draft due",cat:"assignment"},{t:"Early dismissal",cat:"important"}],
+    "2026-09-15":[{t:"Math Unit 3 Test",cat:"exam"}],
+    "2026-09-19":[{t:"Fall Sports Day",cat:"event"}],
+    "2026-09-21":[{t:"Staff Development Day — No School",cat:"dayOff"}],
+    "2026-09-25":[{t:"Color Day Celebration",cat:"celebration",photoSharing:true,photos:[
+      {caption:"Grade 8A — Blue Team",grad:"linear-gradient(135deg,#3a5a8a,#1c2c4a)",status:"approved"},
+      {caption:"Music Recital Rehearsal",grad:"linear-gradient(135deg,#c9a455,#5b3a20)",status:"approved"},
+    ]}],
+    "2026-09-26":[{t:"History Midterm",cat:"exam"}],
+    "2026-10-09":[{t:"Fall Break — No School",cat:"holiday"}],
+  },
+  threads:[
+    { id:"t1", kind:"teacherParent", teacherName:"Priya Nandakumar", studentName:"Leo Martins", parentName:"Sofia Martins", subject:"Mathematics", reported:false,
+      messages:[
+        {from:"them",text:"Hi Sofia — Leo did great on today's group project presentation.",time:"4:12 PM"},
+        {from:"me",text:"That's wonderful to hear, thank you for letting me know!",time:"4:15 PM"},
+        {from:"them",text:"He'll have a short reading response due Monday, nothing major.",time:"4:16 PM"},
+      ]},
+    { id:"t2", kind:"teacherStudent", teacherName:"Priya Nandakumar", studentName:"Leo Martins", subject:"Mathematics", reported:false,
+      messages:[
+        {from:"them",text:"Don't forget the quadratics problem set is due tonight.",time:"1:10 PM"},
+        {from:"me",text:"Thank you, working on it now!",time:"1:15 PM"},
+      ]},
+    { id:"t3", kind:"staffParent", staffName:"Daniel Cho", staffTitle:"Operations Manager", parentName:"Sofia Martins", subject:"Administrative", reported:false,
+      messages:[
+        {from:"them",text:"Quick reminder that the fall picture day order form is due Friday.",time:"Yesterday"},
+      ]},
+  ],
+  absenceRequests:[
+    {student:"Marcus Odei",cls:"Grade 8A",date:"Sep 10",reason:"Family emergency",status:"pending"},
+    {student:"Wren Sato",cls:"Grade 8A",date:"Sep 10",reason:"Feeling unwell",status:"pending"},
+  ],
+  notifications:[
+    {icon:"book",kind:"assignment",title:"New assignment posted",body:"Mathematics — Quadratic equations, due today 11:59 PM",time:"This morning",roles:["student"]},
+    {icon:"clock",kind:"deadline",title:"Deadline extended",body:"Art sketchbook now due Wed, Sep 17",time:"2h ago",roles:["student","parent"]},
+    {icon:"alert",kind:"exam",title:"Upcoming test",body:"Science pop quiz tomorrow — Periodic Table",time:"Today",roles:["student","parent"]},
+    {icon:"shield",kind:"attendance",title:"Attendance recorded",body:"Leo Martins marked present today, 8:02 AM",time:"8:02 AM",roles:["parent"]},
+    {icon:"megaphone",kind:"announcement",title:"New announcement",body:"Early dismissal — Friday, Sep 12",time:"2h ago",roles:["student","parent","teacher","director","manager"]},
+    {icon:"award",kind:"achievement",title:"New achievement",body:"Leo earned 'Reader of the Month'",time:"Aug 20",roles:["student","parent"]},
+    {icon:"message",kind:"message",title:"New message",body:"Priya Nandakumar sent a message",time:"4:16 PM",roles:["parent"]},
+    {icon:"lock",kind:"private",title:"Private notice",body:"A private notice from the office is waiting for you",time:"2 days ago",roles:["parent"]},
+    {icon:"users",kind:"admin",title:"Absence approvals pending",body:"2 requests need your review",time:"Today",roles:["director","manager"]},
+    {icon:"book",kind:"grading",title:"Submissions ready to grade",body:"4 Mathematics assignments awaiting grades",time:"Today",roles:["teacher"]},
+  ],
+  commPermissions:{ teacherStudent:true, teacherParent:true, staffParent:true },
+  commRules:{
+    labels:{ homework:"Homework", assignments:"Assignments", deadlines:"Assignment deadlines", exams:"Exams & tests", studyMaterials:"Study materials", tuition:"Tuition reminders", holidays:"Holidays", daysOff:"School days off", announcements:"Major announcements", attendance:"Attendance issues", progress:"Report cards & progress" },
+    defaults:{ homework:["student"], assignments:["student"], deadlines:["student"], exams:["student"], studyMaterials:["student"], tuition:["parent"], holidays:["student","parent"], daysOff:["student","parent"], announcements:["student","parent"], attendance:["parent","student"], progress:["parent","student"] },
+    locked:["tuition"],
+    overrides:[
+      {id:1,scope:"Kindergarten – Grade 2",rule:"homework",recipients:["parent"]},
+      {id:2,scope:"Grades 9–12",rule:"homework",recipients:["student"]},
+    ]
+  },
+  safetyReports:[
+    {id:1,type:'user_report',severity:'medium',category:'Reported conversation',summary:'Parent flagged a message thread over a tone concern; reviewed and closed with no action needed.',participants:'Priya Nandakumar ↔ Sofia Martins',studentInvolved:'Leo Martins',reporter:'Sofia Martins (Parent)',date:'3 days ago',status:'reviewed',parentNotified:false},
+  ],
+  privateNotices:[
+    {id:1,to:"Sofia Martins",toRole:"parent",relatedStudent:"Leo Martins",from:"Daniel Cho",fromTitle:"Operations Manager",category:"Tuition reminder",body:"This is a friendly reminder that the Term 1 tuition balance is due by September 30. Please contact the finance office with any questions.",date:"2 days ago"},
+    {id:2,to:"Sofia Martins",toRole:"parent",relatedStudent:"Leo Martins",from:"Amara Whitfield",fromTitle:"School Director",category:"Administrative",body:"Thank you for volunteering at the fall book fair — we appreciate your support!",date:"1 week ago"},
+  ],
+  parentsDirectory:[
+    {id:"sofia",name:"Sofia Martins",student:"Leo Martins"},
+    {id:"grace",name:"Grace Owusu",student:"Ivy Chen"},
+    {id:"femi",name:"Femi Odei",student:"Marcus Odei"},
+  ]
+};
+const APP_NOW = new Date("2026-09-10T14:30:00");
+const ROLE_META = {
+  director:{label:"Director",icon:"building"},
+  manager:{label:"Manager",icon:"grid"},
+  teacher:{label:"Teacher",icon:"book"},
+  student:{label:"Student",icon:"users"},
+  parent:{label:"Parent",icon:"users"},
+};
+const DOW = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+
+/* ============================= STATE ============================= */
+let state = {
+  joined:false, stage:"discover", searchQuery:"", selectedSchool:null, publicTab:"announcements",
+  joinRole:"teacher", joinName:"", joinCode:"", joinCampus:"",
+  signInRole:"teacher", schoolCodeInput:"", pickedRole:"teacher",
+  role:"teacher", screen:"home",
+  scheduleDay:"Mon", scheduleView:"day",
+  calSelected:"2026-09-10", calYear:2026, calMonth:8,
+  learnTab:"homework",
+  attTab:"today",
+  hubOpen:null,
+  assignmentOpen:null,
+  threadOpen:null,
+  commTab:"routing",
+  overlay:null,
+  toast:null,
+  draftAttendance:JSON.parse(JSON.stringify(DB.roster)),
+  absenceForm:{date:"",reason:""},
+  msgDraft:"",
+  deadlineDraft:"",
+  eventForm:{title:"",cat:"event",date:"",photoSharing:false},
+  overrideForm:{scope:"Kindergarten – Grade 2",rule:"homework",mode:"parent"},
+  noticeForm:{to:"sofia",category:"Tuition reminder",body:""},
+  concernForm:{category:"Bullying / harassment",body:""},
+};
+function setState(patch){ Object.assign(state,patch); render(); }
+function showToast(msg){ state.toast=msg; render(); setTimeout(()=>{ state.toast=null; render(); },2400); }
+
+/* ============================= HELPERS ============================= */
+function statusColor(s){ return s==="present"?"#9ec89e":s==="late"?"var(--gold-bright)":s==="absent"?"var(--red-bright)":"var(--text-dim)"; }
+function catColor(c){ return c==="urgent"?"var(--red-bright)":c==="celebration"||c==="event"?"var(--gold-bright)":"var(--text-dim)"; }
+function catBg(c){ return c==="urgent"?"var(--red-soft)":c==="celebration"||c==="event"?"var(--gold-soft)":"var(--surface-3)"; }
+function catIcon(c){ return c==="urgent"?"alert":c==="celebration"?"cake":c==="event"?"calendar":"megaphone"; }
+
+/* calendar-event category helpers (school days/holidays/exams/events/celebrations/important) */
+const CAL_CATS = {
+  assignment:{label:"Assignment",color:"var(--gold-bright)",bg:"var(--gold-soft)",icon:"book"},
+  exam:{label:"Exam / Test",color:"var(--red-bright)",bg:"var(--red-soft)",icon:"alert"},
+  event:{label:"Event",color:"var(--gold-bright)",bg:"var(--gold-soft)",icon:"calendar"},
+  celebration:{label:"Celebration",color:"var(--gold-bright)",bg:"var(--gold-soft)",icon:"cake"},
+  holiday:{label:"Holiday",color:"var(--text-dim)",bg:"var(--surface-3)",icon:"calendar"},
+  dayOff:{label:"Day off",color:"var(--text-dim)",bg:"var(--surface-3)",icon:"calendar"},
+  important:{label:"Important",color:"var(--red-bright)",bg:"var(--red-soft)",icon:"flag"},
+};
+function calCat(c){ return CAL_CATS[c] || CAL_CATS.event; }
+
+/* communication-rules recipient <-> mode helpers */
+function modeFromArr(arr){ return arr.length>=2 ? "both" : arr[0]; }
+function arrFromMode(mode){ return mode==="both" ? ["student","parent"] : [mode]; }
+function modeLabel(mode){ return mode==="both"?"Student + Parent":mode==="parent"?"Parent only":"Student only"; }
+function nextMode(mode){ return mode==="student"?"parent":mode==="parent"?"both":"student"; }
+
+/* countdown helper for assignment due dates */
+function countdown(due_ts, status){
+  if(status==="graded") return {label:"Graded", tone:"neutral"};
+  if(status==="submitted") return {label:"Submitted", tone:"good"};
+  const due = new Date(due_ts);
+  const diffMs = due - APP_NOW;
+  if(diffMs < 0) return {label:"Overdue", tone:"bad"};
+  const mins = Math.round(diffMs/60000);
+  const hrs = Math.floor(mins/60);
+  const days = Math.floor(hrs/24);
+  if(days >= 1) return {label:`${days} day${days>1?'s':''} left`, tone: days<=1?"warn":"good"};
+  if(hrs >= 1) return {label:`${hrs}h ${mins%60}m left`, tone: hrs<=3?"warn":"good"};
+  return {label:`${mins}m left`, tone:"bad"};
+}
+function countdownColor(tone){ return tone==="bad"?"var(--red-bright)":tone==="warn"?"var(--gold-bright)":tone==="good"?"#9ec89e":"var(--text-faint)"; }
+function countdownBg(tone){ return tone==="bad"?"var(--red-soft)":tone==="warn"?"var(--gold-soft)":tone==="good"?"rgba(120,168,120,0.16)":"var(--surface-3)"; }
+
+/* ============================= CHILD SAFETY / CONTENT SCREENING ============================= */
+/* Two-path moderation: content aimed at harming/exploiting someone else is BLOCKED and reported.
+   Content revealing the sender's own distress is NOT blocked (cutting it off could be dangerous) —
+   it is still delivered, and quietly escalated to admin as an urgent wellbeing check. */
+const SAFETY_BLOCKED_TERMS = ["nude","naked","porn","sex","sexual","explicit photo","kill you","gun","weapon","stab","shut up","hate you","stupid","idiot"];
+const SAFETY_WELLBEING_TERMS = ["want to die","kill myself","suicide","hurt myself","he hits me","she hits me","hits me at home","unsafe at home","being abused","touched me"];
+function scanContent(text){
+  const t = (text||"").toLowerCase();
+  if(SAFETY_WELLBEING_TERMS.some(k=>t.includes(k))) return {flag:"wellbeing"};
+  if(SAFETY_BLOCKED_TERMS.some(k=>t.includes(k))) return {flag:"blocked"};
+  return {flag:null};
+}
+function createSafetyReport(r){
+  DB.safetyReports.unshift(Object.assign({ id: Date.now()+Math.random(), date:"Just now", status:"open", parentNotified:false }, r));
+}
+
+/* ============================= RENDER: SHELL ============================= */
+function render(){
+  const root = document.getElementById('phone');
+  if(state.joined){ root.innerHTML = renderApp(); }
+  else {
+    switch(state.stage){
+      case 'schoolPublic': root.innerHTML = renderSchoolPublic(); break;
+      case 'signIn': root.innerHTML = renderSignIn(); break;
+      case 'joinForm': root.innerHTML = renderJoinForm(); break;
+      case 'verifying': root.innerHTML = renderVerifying(); break;
+      default: root.innerHTML = renderDiscover();
+    }
+  }
+  bindEvents(root);
+}
+
+/* ---------- DISCOVERY ---------- */
+function renderDiscover(){
+  const q = state.searchQuery.trim().toLowerCase();
+  const results = DB.schools.filter(s=> !q || s.name.toLowerCase().includes(q) || s.location.toLowerCase().includes(q));
+  return `
+  <div class="discover-wrap">
+    <div class="discover-top">
+      <div class="discover-brand">
+        <div class="brand-mark">S</div>
+        <div class="brand-text"><div class="name">Skolix</div></div>
+      </div>
+      <div class="discover-signin" data-act="openSignIn">Sign in</div>
+    </div>
+
+    <div class="discover-head">
+      <h1>Find your school on Skolix</h1>
+      <p>Browse public school pages — announcements, celebrations, events and more. Join once you're ready to connect.</p>
+    </div>
+
+    <div class="search-bar">
+      ${icon('search',16)}
+      <input type="text" id="schoolSearch" placeholder="Search for a school…" value="${state.searchQuery}"/>
+    </div>
+
+    <div class="section-title">${results.length} school${results.length===1?'':'s'} found</div>
+    ${results.map(s=>renderSchoolCard(s)).join('') || emptyState('No schools match your search.')}
+  </div>`;
+}
+function renderSchoolCard(s){
+  return `
+  <div class="school-card">
+    <div class="school-cover" style="background:${s.grad};" data-act="viewSchool" data-id="${s.id}"></div>
+    <div class="school-card-body" data-act="viewSchool" data-id="${s.id}">
+      <div class="school-avatar" style="background:${s.grad};">${s.initial}</div>
+      <div class="school-info">
+        <div class="school-name">${s.name}</div>
+        <div class="school-loc">${icon('pin',12)} ${s.location}</div>
+        <div class="school-tags">
+          <span class="badge badge-neutral">${s.tagline}</span>
+          <span class="badge badge-gold">${s.students} students</span>
+        </div>
+      </div>
+    </div>
+    <div class="view-school-btn" data-act="viewSchool" data-id="${s.id}">View school ${icon('chevRight',14)}</div>
+  </div>`;
+}
+
+/* ---------- SCHOOL PUBLIC PAGE ---------- */
+function renderSchoolPublic(){
+  const s = DB.schools.find(x=>x.id===state.selectedSchool);
+  if(!s) return renderDiscover();
+  const content = DB.publicContent[s.id] || {};
+  const tabs = [
+    {id:'announcements',label:'Announcements'},
+    {id:'celebrations',label:'Celebrations'},
+    {id:'events',label:'Events'},
+    {id:'achievements',label:'Achievements'},
+    {id:'news',label:'News'},
+    {id:'photos',label:'Photos'},
+  ];
+  const items = content[state.publicTab] || [];
+  let body;
+  if(state.publicTab==='photos'){
+    body = items.length ? `<div class="photo-grid">${items.map(p=>`
+      <div class="photo-tile" style="background:${p.grad};"><div class="photo-caption">${p.caption}</div></div>`).join('')}</div>`
+      : emptyState('No photos shared publicly yet.');
+  } else if(state.publicTab==='achievements'){
+    body = items.length ? `<div class="card"><div class="quick-row" style="overflow-x:visible;flex-wrap:wrap;">${items.map(a=>`
+      <div class="quick-chip" style="min-width:110px;">
+        <div class="qi" style="background:var(--gold-soft);color:var(--gold-bright);width:40px;height:40px;">${icon(a.icon||'award',19)}</div>
+        <span style="font-weight:600;color:var(--text);">${a.title}</span>
+        <span style="font-size:10px;">${a.date}</span>
+      </div>`).join('')}</div></div>` : emptyState('No public achievements yet.');
+  } else {
+    body = items.length ? `<div class="card" style="padding:0;">${items.map((a,i)=>`
+      <div class="list-item" style="padding:14px;${i<items.length-1?'border-bottom:1px solid var(--border-soft);':''}">
+        <div class="li-icon" style="background:var(--gold-soft);color:var(--gold-bright);">${icon(state.publicTab==='events'?'calendar':state.publicTab==='celebrations'?'cake':state.publicTab==='news'?'file':'megaphone',16)}</div>
+        <div class="li-body">
+          <div class="li-title">${a.title}</div>
+          ${a.body?`<div style="font-size:12px;color:var(--text-dim);margin-top:4px;line-height:1.45;">${a.body}</div>`:''}
+          <div class="li-sub" style="margin-top:6px;">${a.date}</div>
+        </div>
+      </div>`).join('')}</div>` : emptyState(`No public ${tabs.find(t=>t.id===state.publicTab).label.toLowerCase()} yet.`);
+  }
+
+  return `
+  <div style="padding:0 18px;">
+    <div class="pub-cover" style="background:${s.grad};">
+      <div class="pub-topbar">
+        <div class="icon-btn" style="background:rgba(20,19,23,0.5);border-color:rgba(255,255,255,0.2);color:#fff;" data-act="backToDiscover">${icon('chevLeft',18)}</div>
+      </div>
+    </div>
+    <div class="pub-header">
+      <div class="pub-avatar" style="background:${s.grad};">${s.initial}</div>
+      <div class="pub-name-row"><div class="pub-name">${s.name}</div><div class="verified-badge">${icon('check',10)} Verified</div></div>
+      <div class="pub-loc">${icon('pin',13)} ${s.location} · ${s.tagline}</div>
+      <div class="pub-stats">
+        <div class="pub-stat"><b>${s.students}</b>Students</div>
+        <div class="pub-stat"><b>${s.code}</b>School code</div>
+      </div>
+      <div class="school-tags" style="margin-top:14px;">
+        ${s.campuses.map(c=>`<span class="badge badge-gold">${c.name} · ${c.grades}</span>`).join('')}
+      </div>
+      <div class="join-bar">
+        <button class="btn btn-primary" style="flex:1;" data-act="openJoin" data-id="${s.id}">${icon('plus',15)} Join school</button>
+      </div>
+      <div class="signin-link">Already a verified member? <b data-act="openSignIn">Sign in</b></div>
+    </div>
+
+    <div class="chip-row">${tabs.map(t=>`<div class="chip ${state.publicTab===t.id?'active':''}" data-act="pubTab" data-t="${t.id}">${t.label}</div>`).join('')}</div>
+    ${body}
+    <div style="height:14px;"></div>
+  </div>`;
+}
+
+/* ---------- SIGN IN (verified members) ---------- */
+function renderSignIn(){
+  const s = DB.schools.find(x=>x.id===state.selectedSchool) || DB.schools[0];
+  return `
+  <div class="auth-wrap">
+    <div class="icon-btn" style="margin-bottom:18px;" data-act="backFromSignIn">${icon('chevLeft',18)}</div>
+    <div class="auth-mark">S</div>
+    <div class="auth-title">Sign in to Skolix</div>
+    <div class="auth-sub">Enter your school and pick your account to reach your private school community.</div>
+
+    <div style="margin-top:26px;">
+      <label>School code</label>
+      <input type="text" id="schoolCode" placeholder="e.g. NBA-2026" value="${s.code}"/>
+    </div>
+
+    <div style="margin-top:22px;">
+      <label>Sign in as</label>
+      <div class="role-grid">
+        ${Object.keys(ROLE_META).map(r=>`
+          <div class="role-card ${state.signInRole===r?'active':''}" data-act="pickSignInRole" data-role="${r}">
+            <div class="ri">${icon(ROLE_META[r].icon,16)}</div>
+            <div class="rn">${ROLE_META[r].label}</div>
+            <div class="rd">${DB.people[r].name}</div>
+          </div>`).join('')}
+      </div>
+    </div>
+
+    <div style="flex:1;"></div>
+    <button class="btn btn-primary btn-block" data-act="submitSignIn" style="margin-top:26px;">${icon('chevRight',16)} Sign in</button>
+    <div style="text-align:center;font-size:11px;color:var(--text-faint);margin-top:14px;">Demo mode — role switcher also available inside the app</div>
+  </div>`;
+}
+
+/* ---------- JOIN FORM (new members, pending verification) ---------- */
+function renderJoinForm(){
+  const s = DB.schools.find(x=>x.id===state.selectedSchool) || DB.schools[0];
+  return `
+  <div class="auth-wrap">
+    <div class="icon-btn" style="margin-bottom:18px;" data-act="backToSchool">${icon('chevLeft',18)}</div>
+    <div class="auth-mark" style="background:${s.grad};">${s.initial}</div>
+    <div class="auth-title">Join ${s.name}</div>
+    <div class="auth-sub">Enter your name, the school code and your role. The school verifies you before you enter the private community.</div>
+
+    <div style="margin-top:24px;">
+      <label>Full name</label>
+      <input type="text" id="joinName" placeholder="Your full name" value="${state.joinName}"/>
+    </div>
+    <div style="margin-top:14px;">
+      <label>School code</label>
+      <input type="text" id="joinCode" placeholder="e.g. ${s.code}" value="${state.joinCode}"/>
+    </div>
+
+    ${s.campuses.length>1?`
+    <div style="margin-top:20px;">
+      <label>Campus / level</label>
+      <div class="chip-row" style="margin:8px 0 0 0;">
+        ${s.campuses.map(c=>`<div class="chip ${state.joinCampus===c.id?'active':''}" data-act="pickJoinCampus" data-c="${c.id}">${c.name}</div>`).join('')}
+      </div>
+    </div>`:''}
+
+    <div style="margin-top:20px;">
+      <label>I am joining as</label>
+      <div class="role-grid">
+        ${Object.keys(ROLE_META).map(r=>`
+          <div class="role-card ${state.joinRole===r?'active':''}" data-act="pickJoinRole" data-role="${r}">
+            <div class="ri">${icon(ROLE_META[r].icon,16)}</div>
+            <div class="rn">${ROLE_META[r].label}</div>
+            <div class="rd">${DB.people[r].name}</div>
+          </div>`).join('')}
+      </div>
+    </div>
+
+    <div style="flex:1;"></div>
+    <button class="btn btn-primary btn-block" data-act="submitJoin" style="margin-top:22px;">${icon('send',15)} Submit request</button>
+    <div style="text-align:center;font-size:11px;color:var(--text-faint);margin-top:14px;">Verified members only</div>
+  </div>`;
+}
+
+/* ---------- VERIFYING ---------- */
+function renderVerifying(){
+  const s = DB.schools.find(x=>x.id===state.selectedSchool) || DB.schools[0];
+  return `<div class="verify-wrap">
+    <div class="spinner"></div>
+    <div style="font-family:'Space Grotesk';font-weight:700;font-size:16px;">Verifying your details</div>
+    <div style="font-size:12.5px;color:var(--text-faint);margin-top:8px;line-height:1.5;">Checking your request against ${s.name}'s records…</div>
+  </div>`;
+}
+
+/* ---------- APP SHELL ---------- */
+function renderApp(){
+  const p = DB.people[state.role];
+  return `
+    <div class="topbar">
+      <div class="brand">
+        <div class="brand-mark">S</div>
+        <div class="brand-text">
+          <div class="name">Skolix</div>
+          <div class="school">${DB.school.name} · ${DB.school.campus}</div>
+        </div>
+      </div>
+      <div class="topbar-actions">
+        <div class="icon-btn" data-act="openOverlay" data-ov="notifs">${icon('bell',18)}<span class="dot"></span></div>
+        <div class="avatar" data-act="openOverlay" data-ov="roleSwitch">${p.initials}</div>
+      </div>
+    </div>
+    <div id="content">${renderScreen()}</div>
+    ${renderBottomNav()}
+    ${state.overlay?renderOverlay():''}
+    ${state.toast?`<div class="toast">${icon('check',15)} ${state.toast}</div>`:''}
+  `;
+}
+
+function renderBottomNav(){
+  const items = [
+    {id:'home',label:'Home',icon:'home'},
+    {id:'schedule',label:'Schedule',icon:'calendar'},
+    {id:'learn',label:'Learn',icon:'book'},
+    {id:'attendance',label:'Attendance',icon:'shield'},
+    {id:'hub',label:'Hub',icon:'grid'},
+  ];
+  return `<div class="bottomnav">
+    ${items.map(i=>`
+      <div class="nav-item ${state.screen===i.id?'active':''}" data-act="nav" data-screen="${i.id}">
+        ${icon(i.icon,20,state.screen===i.id?2.1:1.8)}
+        <span>${i.label}</span>
+      </div>`).join('')}
+  </div>`;
+}
+
+function renderScreen(){
+  switch(state.screen){
+    case 'home': return renderHome();
+    case 'schedule': return renderSchedule();
+    case 'learn': return renderLearn();
+    case 'attendance': return renderAttendance();
+    case 'hub': return state.hubOpen ? renderHubDetail() : renderHub();
+    default: return '';
+  }
+}
+
+/* ============================= HOME ============================= */
+function renderHome(){
+  const p = DB.people[state.role];
+  const hour = new Date().getHours();
+  const greet = hour<12?"Good morning":hour<17?"Good afternoon":"Good evening";
+  let stats='', quick='', feed='';
+
+  if(state.role==='director'){
+    stats = statGrid([["1,284","Total students"],["96.1%","Avg. attendance"],["7","Pending approvals"],["112","Staff members"]]);
+    quick = quickRow([["megaphone","Post notice","hub","announcements"],["shield","Attendance","attendance"],["slider","Comm. rules","hub","commRules"],["shield","Safety","hub","safety"]]);
+  } else if(state.role==='manager'){
+    stats = statGrid([["1,284","Enrolled"],["7","Absence approvals"],["3","Events this week"],["24","Open forms"]]);
+    quick = quickRow([["shield","Approvals","attendance"],["calendar","Events","schedule"],["megaphone","Announce","hub","announcements"],["lock","Notices","hub","privateNotices"]]);
+  } else if(state.role==='teacher'){
+    stats = statGrid([["5","Classes today"],["8","In Grade 8A"],["4","To grade"],["2","Absent today"]]);
+    quick = quickRow([["shield","Take attendance","attendance"],["book","Assign work","learn"],["gpa","Enter grades","hub","grades"],["message","Messages","hub","messages"]]);
+  } else if(state.role==='student'){
+    stats = statGrid([["96%","Attendance"],["3","Due this week"],["A-","Latest grade"],["3","Achievements"]]);
+    quick = quickRow([["book","Homework","learn"],["calendar","Schedule","schedule"],["gpa","Grades","hub","grades"],["award","Achievements","hub","achievements"]]);
+  } else {
+    stats = statGrid([["96%","Leo's attendance"],["3","Assignments due"],["A-","Latest grade"],["1","New message"]]);
+    quick = quickRow([["shield","Attendance","attendance"],["book","Homework","learn"],["message","Message teacher","hub","messages"],["megaphone","Announcements","hub","announcements"]]);
+  }
+
+  const feedItems = DB.announcements.slice(0,2);
+  feed = feedItems.map(a=>`
+    <div class="card card-tight" data-act="nav" data-screen="hub" data-hub="announcements">
+      <div class="list-item" style="border:none;padding:2px 0;">
+        <div class="li-icon" style="background:${catBg(a.cat)};color:${catColor(a.cat)};">${icon(catIcon(a.cat),17)}</div>
+        <div class="li-body">
+          <div class="li-title">${a.title}</div>
+          <div class="li-sub">${a.author} · ${a.date}</div>
+        </div>
+        ${icon('chevRight',16)}
+      </div>
+    </div>`).join('');
+
+  return `
+    <div class="hero-card">
+      <div class="greeting">${greet}</div>
+      <div class="greeting-name">${p.name.split(' ')[0]}</div>
+      ${stats}
+    </div>
+    <div class="section-title">Quick actions</div>
+    ${quick}
+    <div class="section-title">Latest from school</div>
+    ${feed}
+  `;
+}
+function statGrid(pairs){
+  return `<div class="stat-grid">${pairs.map(([n,l])=>`<div class="stat-box"><div class="stat-num">${n}</div><div class="stat-label">${l}</div></div>`).join('')}</div>`;
+}
+function quickRow(items){
+  return `<div class="quick-row">${items.map(([ic,label,screen,hub])=>`
+    <div class="quick-chip" data-act="nav" data-screen="${screen}" ${hub?`data-hub="${hub}"`:''}>
+      <div class="qi" style="background:var(--gold-soft);color:var(--gold-bright);">${icon(ic,17)}</div>
+      <span>${label}</span>
+    </div>`).join('')}</div>`;
+}
+
+/* ============================= SCHEDULE ============================= */
+function renderSchedule(){
+  const days = Object.keys(DB.schedule);
+  const toggle = `<div class="seg" style="margin-top:6px;">
+      <div class="seg-item ${state.scheduleView==='day'?'active':''}" data-act="schedView" data-v="day">Timetable</div>
+      <div class="seg-item ${state.scheduleView==='month'?'active':''}" data-act="schedView" data-v="month">Calendar</div>
+    </div>`;
+
+  if(state.scheduleView==='day'){
+    const dayList = `<div class="chip-row">${days.map(d=>`<div class="chip ${state.scheduleDay===d?'active':''}" data-act="pickDay" data-d="${d}">${d}</div>`).join('')}</div>`;
+    const periods = DB.schedule[state.scheduleDay]||[];
+    const list = periods.length ? `<div class="card">${periods.map(p=>`
+      <div class="list-item">
+        <div class="li-icon" style="background:var(--surface-3);color:var(--gold-bright);">${icon('clock',16)}</div>
+        <div class="li-body"><div class="li-title">${p.s}</div><div class="li-sub">${p.r} · ${p.teacher}</div></div>
+        <div class="li-meta">${p.t}</div>
+      </div>`).join('')}</div>` : emptyState("No classes scheduled this day.");
+    return `${toggle}${dayList}${list}`;
+  } else {
+    return `${toggle}${renderMonthCalendar()}`;
+  }
+}
+function renderMonthCalendar(){
+  const year = state.calYear, month = state.calMonth;
+  const first = new Date(year,month,1);
+  const startDow = first.getDay();
+  const daysInMonth = new Date(year,month+1,0).getDate();
+  const monthLabel = first.toLocaleDateString('en-US',{month:'long',year:'numeric'});
+  let cells=[];
+  for(let i=0;i<startDow;i++) cells.push(`<div class="cal-cell pad"></div>`);
+  for(let d=1;d<=daysInMonth;d++){
+    const key = `${year}-${String(month+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+    const evs = DB.calendarEvents[key]||[];
+    const isToday = (year===APP_NOW.getFullYear() && month===APP_NOW.getMonth() && d===APP_NOW.getDate());
+    const isSel = state.calSelected===key;
+    cells.push(`<div class="cal-cell ${isToday?'today':''} ${isSel?'sel':''}" data-act="pickDate" data-date="${key}">
+      ${d}
+      <div class="cal-dots">${evs.slice(0,3).map(e=>`<span style="background:${calCat(e.cat).color}"></span>`).join('')}</div>
+    </div>`);
+  }
+  const sel = DB.calendarEvents[state.calSelected]||[];
+  const canManage = state.role==='teacher'||state.role==='director'||state.role==='manager';
+  const legendCats = ['assignment','exam','event','celebration','holiday','important'];
+  const legend = `<div class="cal-legend">${legendCats.map(c=>`<div class="cal-legend-item"><span style="background:${calCat(c).color}"></span>${calCat(c).label}</div>`).join('')}</div>`;
+
+  const dayList = sel.map((e,i)=>{
+    const cc = calCat(e.cat);
+    const photoSection = e.photoSharing ? renderEventPhotos(e,i) : '';
+    return `<div class="list-item" style="align-items:flex-start;">
+      <div class="li-icon" style="background:${cc.bg};color:${cc.color};">${icon(cc.icon,16)}</div>
+      <div class="li-body" style="width:100%;">
+        <div class="row-between"><div class="li-title">${e.t}</div><span class="badge badge-neutral">${cc.label}</span></div>
+        ${photoSection}
+      </div>
+    </div>`;
+  }).join('');
+
+  return `
+    <div class="card">
+      <div class="row-between">
+        <div style="font-family:'Space Grotesk';font-weight:700;font-size:15px;">${monthLabel}</div>
+        <div class="cal-nav">
+          <div class="icon-btn" style="width:30px;height:30px;" data-act="calNav" data-dir="-1">${icon('chevLeft',15)}</div>
+          <div class="icon-btn" style="width:30px;height:30px;" data-act="calNav" data-dir="1">${icon('chevRight',15)}</div>
+        </div>
+      </div>
+      <div class="cal-grid">${DOW.map(d=>`<div class="cal-dow">${d[0]}</div>`).join('')}${cells.join('')}</div>
+      ${legend}
+    </div>
+    <div class="section-title">${formatDateLabel(state.calSelected)}</div>
+    ${canManage?`<button class="btn btn-outline btn-block" style="margin-bottom:12px;" data-act="openOverlay" data-ov="addEvent">${icon('plus',15)} Add to calendar</button>`:''}
+    ${sel.length ? `<div class="card">${dayList}</div>` : emptyState("Nothing scheduled this day.")}
+  `;
+}
+function renderEventPhotos(e){
+  const photos = e.photos || [];
+  const approved = photos.filter(p=>p.status==='approved');
+  const pending = photos.filter(p=>p.status==='pending');
+  const canShare = state.role==='student'||state.role==='parent';
+  return `
+    <div style="margin-top:10px;width:100%;">
+      <div style="font-size:11px;color:var(--text-faint);font-weight:600;margin-bottom:6px;">${icon('camera',12)} Shared photos</div>
+      ${(approved.length||pending.length) ? `<div class="photo-grid">
+        ${approved.map(p=>`<div class="photo-tile" style="background:${p.grad};"><div class="photo-caption">${p.caption}</div></div>`).join('')}
+        ${pending.map(p=>`<div class="photo-tile" style="background:${p.grad};opacity:0.6;"><div class="photo-caption">${p.caption} · Pending</div></div>`).join('')}
+      </div>` : `<div style="font-size:11.5px;color:var(--text-faint);">No photos shared yet.</div>`}
+      ${canShare?`<button class="btn btn-outline btn-sm" style="margin-top:8px;" data-act="sharePhoto">${icon('camera',13)} Share a photo</button>`:''}
+    </div>
+  `;
+}
+function formatDateLabel(key){
+  const [y,m,d] = key.split('-').map(Number);
+  const dt = new Date(y,m-1,d);
+  return dt.toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'});
+}
+
+/* ============================= LEARN ============================= */
+function renderLearn(){
+  if(state.assignmentOpen) return renderAssignmentDetail();
+
+  const seg = `<div class="seg">
+    <div class="seg-item ${state.learnTab==='homework'?'active':''}" data-act="learnTab" data-t="homework">Homework</div>
+    <div class="seg-item ${state.learnTab==='tests'?'active':''}" data-act="learnTab" data-t="tests">Tests &amp; Worksheets</div>
+  </div>`;
+
+  if(state.learnTab==='homework'){
+    const canAssign = state.role==='teacher';
+    const list = DB.homework.map(h=>{
+      const cd = countdown(h.due_ts,h.status);
+      const statusBadge = h.status==='graded'? `<span class="badge badge-gold">${h.grade}</span>` :
+        `<span class="badge" style="background:${countdownBg(cd.tone)};color:${countdownColor(cd.tone)};">${cd.label}</span>`;
+      return `<div class="list-item" data-act="openAssignment" data-id="${h.id}" style="cursor:pointer;">
+        <div class="li-icon" style="background:var(--surface-3);color:var(--gold-bright);">${icon('book',16)}</div>
+        <div class="li-body"><div class="li-title">${h.title}</div><div class="li-sub">${h.subject} · ${h.teacher}</div></div>
+        ${statusBadge}
+      </div>`;
+    }).join('');
+    return `${seg}
+      ${canAssign?`<button class="btn btn-outline btn-block" style="margin-top:14px;" data-act="toast" data-msg="New assignment created">${icon('plus',15)} New assignment</button>`:''}
+      <div class="card" style="margin-top:14px;">${list}</div>`;
+  } else {
+    const tests = `<div class="section-title">Upcoming tests</div><div class="card">${DB.tests.map(t=>`
+      <div class="list-item">
+        <div class="li-icon" style="background:var(--red-soft);color:var(--red-bright);">${icon('alert',16)}</div>
+        <div class="li-body"><div class="li-title">${t.title}</div><div class="li-sub">${t.subject} · ${t.type}</div></div>
+        <div class="li-meta">${t.date}</div>
+      </div>`).join('')}</div>`;
+    const worksheets = `<div class="section-title">Worksheets &amp; materials</div><div class="card">${DB.worksheets.map(w=>`
+      <div class="list-item">
+        <div class="li-icon" style="background:var(--surface-3);color:var(--gold-bright);">${icon('file',16)}</div>
+        <div class="li-body"><div class="li-title">${w.title}</div><div class="li-sub">${w.subject} · ${w.size}</div></div>
+        <div class="icon-btn" style="width:32px;height:32px;" data-act="toast" data-msg="Downloading ${w.title}">${icon('down',15)}</div>
+      </div>`).join('')}</div>`;
+    return `${seg}${tests}${worksheets}`;
+  }
+}
+
+function renderAssignmentDetail(){
+  const h = DB.homework.find(x=>x.id===state.assignmentOpen);
+  if(!h) return '';
+  const cd = countdown(h.due_ts,h.status);
+  const parentShares = DB.commRules.defaults.homework.includes('parent');
+
+  return `
+    ${subHeader('Assignment','closeAssignment')}
+    <div class="card">
+      <div class="row-between">
+        <span class="badge badge-neutral">${h.subject}</span>
+        ${h.status==='graded'?`<span class="badge badge-gold">${h.grade}</span>`:`<span class="badge" style="background:${countdownBg(cd.tone)};color:${countdownColor(cd.tone)};">${cd.label}</span>`}
+      </div>
+      <div style="font-family:'Space Grotesk';font-weight:700;font-size:17px;margin-top:12px;line-height:1.3;">${h.title}</div>
+      <div class="li-sub" style="margin-top:5px;">Assigned by ${h.teacher}</div>
+      <div class="divider"></div>
+      <div style="font-size:12px;color:var(--text-dim);font-weight:600;margin-bottom:6px;">Instructions</div>
+      <div style="font-size:13px;line-height:1.55;color:var(--text-dim);">${h.description}</div>
+      ${h.attachment?`
+      <div class="list-item" style="margin-top:6px;">
+        <div class="li-icon" style="background:var(--surface-3);color:var(--gold-bright);">${icon('file',16)}</div>
+        <div class="li-body"><div class="li-title">${h.attachment}</div></div>
+        <div class="icon-btn" style="width:32px;height:32px;" data-act="toast" data-msg="Downloading ${h.attachment}">${icon('down',15)}</div>
+      </div>`:''}
+      <div class="divider"></div>
+      <div class="row-between">
+        <div>
+          <div style="font-size:12px;color:var(--text-dim);font-weight:600;">Due date</div>
+          <div style="font-size:13.5px;font-weight:600;margin-top:2px;">${h.due}</div>
+        </div>
+        <div style="text-align:right;">
+          <div style="font-size:12px;color:var(--text-dim);font-weight:600;">Visibility</div>
+          <div style="font-size:11.5px;color:var(--text-faint);margin-top:2px;">${parentShares?'Student + Parent':'Student only'}</div>
+        </div>
+      </div>
+    </div>
+
+    ${state.role==='student' && h.status==='pending' ? `<button class="btn btn-primary btn-block" data-act="openOverlay" data-ov="submitAssignment">${icon('send',15)} Mark as submitted</button>` : ''}
+    ${state.role==='student' && h.status==='submitted' ? `<div class="empty" style="padding:16px 10px;">${icon('check',18)}<p style="margin-top:8px;">Submitted — waiting to be graded.</p></div>` : ''}
+    ${state.role==='parent' && !parentShares ? `<div class="empty">${icon('lock',20)}<p>Homework details are shared with students only for this class. You'll be notified about deadlines and grades.</p></div>` : ''}
+    ${state.role==='teacher' ? `<button class="btn btn-outline btn-block" data-act="openOverlay" data-ov="changeDeadline">${icon('clock',15)} Change deadline</button>` : ''}
+  `;
+}
+
+/* ============================= ATTENDANCE ============================= */
+function renderAttendance(){
+  if(state.role==='teacher'){
+    const present = state.draftAttendance.filter(s=>s.status==='present').length;
+    return `
+      <div class="card hero-card">
+        <div class="row-between">
+          <div>
+            <div class="greeting">Grade 8A · Today</div>
+            <div class="greeting-name" style="font-size:18px;">${present}/${state.draftAttendance.length} present</div>
+          </div>
+          <div class="li-icon" style="background:var(--gold-soft);color:var(--gold-bright);width:44px;height:44px;">${icon('shield',20)}</div>
+        </div>
+      </div>
+      <div class="card">
+        ${state.draftAttendance.map(s=>`
+        <div class="list-item">
+          <div class="li-icon" style="background:var(--surface-3);color:var(--text-dim);">${icon('users',15)}</div>
+          <div class="li-body"><div class="li-title">${s.name}</div></div>
+          <div class="attend-toggle">
+            <div class="att-opt present ${s.status==='present'?'sel':''}" data-act="setAtt" data-id="${s.id}" data-s="present">P</div>
+            <div class="att-opt late ${s.status==='late'?'sel':''}" data-act="setAtt" data-id="${s.id}" data-s="late">L</div>
+            <div class="att-opt absent ${s.status==='absent'?'sel':''}" data-act="setAtt" data-id="${s.id}" data-s="absent">A</div>
+          </div>
+        </div>`).join('')}
+      </div>
+      <button class="btn btn-primary btn-block" data-act="saveAttendance">${icon('send',15)} Save &amp; notify parents</button>
+      <div class="section-title">Pending absence requests</div>
+      <div class="card">${DB.absenceRequests.map(a=>`
+        <div class="list-item">
+          <div class="li-icon" style="background:var(--red-soft);color:var(--red-bright);">${icon('alert',15)}</div>
+          <div class="li-body"><div class="li-title">${a.student}</div><div class="li-sub">${a.reason} · ${a.date}</div></div>
+          <span class="badge badge-neutral">Pending</span>
+        </div>`).join('')}</div>
+    `;
+  }
+  if(state.role==='director'||state.role==='manager'){
+    return `
+      <div class="section-title">School-wide attendance</div>
+      <div class="card">${DB.classAttendance.map(c=>`
+        <div style="margin-bottom:12px;">
+          <div class="row-between" style="margin-bottom:5px;"><span style="font-size:12.5px;font-weight:600;">${c.cls}</span><span style="font-size:12px;color:${c.pct<85?'var(--red-bright)':'var(--gold-bright)'};font-weight:700;">${c.pct}%</span></div>
+          <div class="grade-bar-track"><div class="grade-bar-fill" style="width:${c.pct}%;background:${c.pct<85?'var(--red-bright)':'linear-gradient(90deg,var(--gold),var(--gold-bright))'};"></div></div>
+        </div>`).join('')}</div>
+      <div class="section-title">Needs attention</div>
+      <div class="card">
+        <div class="list-item"><div class="li-icon" style="background:var(--red-soft);color:var(--red-bright);">${icon('alert',15)}</div><div class="li-body"><div class="li-title">Grade 10A</div><div class="li-sub">Attendance dropped below 80% this week</div></div></div>
+      </div>
+      <div class="section-title">Pending absence approvals</div>
+      <div class="card">${DB.absenceRequests.map(a=>`
+        <div class="list-item">
+          <div class="li-body"><div class="li-title">${a.student} · ${a.cls}</div><div class="li-sub">${a.reason} · ${a.date}</div></div>
+          <button class="btn btn-primary btn-sm" data-act="toast" data-msg="Approved for ${a.student}">Approve</button>
+        </div>`).join('')}</div>
+    `;
+  }
+  // student / parent
+  const label = state.role==='parent' ? "Leo's attendance" : "Your attendance";
+  return `
+    <div class="card">
+      <div style="display:flex;align-items:center;gap:16px;">
+        ${ring(96,'#9ec89e')}
+        <div>
+          <div style="font-family:'Space Grotesk';font-weight:700;font-size:16px;">${label}</div>
+          <div style="font-size:12px;color:var(--text-faint);margin-top:3px;">This term · 42 days present</div>
+        </div>
+      </div>
+    </div>
+    <button class="btn btn-outline btn-block" data-act="openOverlay" data-ov="absence">${icon('plus',15)} Submit absence reason</button>
+    <div class="section-title">Recent history</div>
+    <div class="card">${DB.attendanceHistory.map(h=>`
+      <div class="list-item">
+        <div class="li-icon" style="background:${h.status==='absent'?'var(--red-soft)':'var(--surface-3)'};color:${statusColor(h.status)};">${icon(h.status==='absent'?'alert':'check',15)}</div>
+        <div class="li-body"><div class="li-title">${h.date}</div>${h.reason?`<div class="li-sub">${h.reason}</div>`:''}</div>
+        <span class="badge ${h.status==='present'?'badge-green':h.status==='late'?'badge-gold':'badge-red'}">${h.status}${h.approval?' · '+h.approval:''}</span>
+      </div>`).join('')}</div>
+  `;
+}
+function ring(pct,color){
+  const r=32, c=2*Math.PI*r, off=c*(1-pct/100);
+  return `<div class="ring-wrap"><svg width="84" height="84"><circle cx="42" cy="42" r="${r}" stroke="var(--surface-3)" stroke-width="7" fill="none"/><circle cx="42" cy="42" r="${r}" stroke="${color}" stroke-width="7" fill="none" stroke-linecap="round" stroke-dasharray="${c}" stroke-dashoffset="${off}"/></svg>
+    <div class="ring-label"><div class="n">${pct}%</div><div class="p">present</div></div></div>`;
+}
+
+/* ============================= HUB ============================= */
+function renderHub(){
+  const cards = hubCardsForRole(state.role).concat(feedbackCard(state.role));
+  return `<div class="hub-grid">${cards.map((c,i)=>`
+    <div class="hub-card" data-act="openHub" data-h="${c.id}">
+      <div class="hi" style="background:${i%2?'var(--red-soft)':'var(--gold-soft)'};color:${i%2?'var(--red-bright)':'var(--gold-bright)'};">${icon(c.ic,18)}</div>
+      <div><div class="ht">${c.t}</div><div class="hs">${c.s}</div></div>
+    </div>`).join('')}</div>`;
+}
+function hubCardsForRole(role){
+  const grades={id:'grades',t:'Grades & Report Card',s:'Marks, GPA, comments',ic:'gpa'};
+  const achievements={id:'achievements',t:'Achievements & Behavior',s:'Badges & notes',ic:'award'};
+  const announcements={id:'announcements',t:'Announcements',s:'News & celebrations',ic:'megaphone'};
+  const messages={id:'messages',t:'Messages',s:'Direct conversations',ic:'message'};
+  const privateNoticesParent={id:'privateNotices',t:'Private Notices',s:'From the school office',ic:'lock'};
+  const privateNoticesAdmin={id:'privateNotices',t:'Private Notices',s:'Send a private notice',ic:'lock'};
+  const commRules={id:'commRules',t:'Communication Rules',s:'Routing & permissions',ic:'slider'};
+  const safety={id:'safety',t:'Safety & Reports',s:'Reported conversations',ic:'shield'};
+  const access={id:'access',t:'People & Access',s:'Codes, activity, accounts',ic:'lock'};
+  const wsr={id:'wsResults',t:'Worksheet Results',s:'Your classes',ic:'award'};
+  const reportConcern={id:'reportConcern',t:'Report a Concern',s:'Tell the school something',ic:'flag'};
+  if(role==='parent') return [grades,achievements,announcements,messages,privateNoticesParent,reportConcern];
+  if(role==='director'||role==='manager') return [access,announcements,messages,commRules,safety,privateNoticesAdmin];
+  return role==='teacher' ? [wsr,grades,achievements,announcements,messages,reportConcern] : [grades,achievements,announcements,messages,reportConcern];
+}
+function subHeader(title, backAct, rightHtml){
+  backAct = backAct || 'closeHub';
+  rightHtml = rightHtml || '';
+  return `<div class="subheader"><div class="back-btn" data-act="${backAct}">${icon('chevLeft',18)}</div><div class="subheader-title" style="flex:1;">${title}</div>${rightHtml}</div>`;
+}
+function renderHubDetail(){
+  if(state.hubOpen==='grades') return subHeader('Grades & Report Card') + renderGrades();
+  if(state.hubOpen==='achievements') return subHeader('Achievements & Behavior') + renderAchievements();
+  if(state.hubOpen==='announcements') return subHeader('Announcements') + renderAnnouncements();
+  if(state.hubOpen==='messages') return renderMessagesInbox();
+  if(state.hubOpen==='commRules') return subHeader('Communication Rules') + renderCommRules();
+  if(state.hubOpen==='safety') return subHeader('Safety & Reports') + renderSafety();
+  if(state.hubOpen==='privateNotices') return subHeader('Private Notices') + renderPrivateNotices();
+  if(state.hubOpen==='access') return subHeader('People & Access') + renderAccess();
+  if(state.hubOpen==='wsResults') return state.role==='teacher' ? renderWsResults() : '';
+  if(state.hubOpen==='fbAdmin') return subHeader('Anonymous Feedback') + renderFeedbackAdmin();
+  if(state.hubOpen==='fbSubmit') return subHeader('Say What You Think') + renderFeedbackSubmit();
+  if(state.hubOpen==='reportConcern') return subHeader('Report a Concern') + renderReportConcern();
+  return '';
+}
+function renderReportConcern(){
+  return `
+    <div class="card">
+      <div style="font-size:12.5px;color:var(--text-dim);line-height:1.55;">Use this if you've seen or experienced something that doesn't feel right — bullying, inappropriate content, or a safety concern. Reports go directly and privately to school administrators.</div>
+    </div>
+    <button class="btn btn-primary btn-block" data-act="openOverlay" data-ov="reportConcern">${icon('flag',15)} Start a report</button>
+  `;
+}
+
+function renderGrades(){
+  const bars = DB.grades.map(g=>`
+    <div style="margin-bottom:14px;">
+      <div class="row-between" style="margin-bottom:6px;"><span style="font-size:13px;font-weight:600;">${g.subject}</span><span style="font-size:12.5px;color:var(--gold-bright);font-weight:700;">${g.letter} · ${g.score}%</span></div>
+      <div class="grade-bar-track"><div class="grade-bar-fill" style="width:${g.score}%;background:linear-gradient(90deg,var(--gold),var(--gold-bright));"></div></div>
+    </div>`).join('');
+  return `
+    <div class="card">${bars}</div>
+    <div class="section-title">Report card — ${DB.reportCard.term}</div>
+    <div class="card">
+      <div class="stat-grid" style="grid-template-columns:1fr 1fr;">
+        <div class="stat-box"><div class="stat-num">${DB.reportCard.gpa}</div><div class="stat-label">GPA</div></div>
+        <div class="stat-box"><div class="stat-num">${DB.reportCard.rank}</div><div class="stat-label">Class rank</div></div>
+      </div>
+      <div class="divider"></div>
+      <div style="font-size:12px;color:var(--text-dim);font-weight:600;margin-bottom:6px;">Teacher comment</div>
+      <div style="font-size:13px;line-height:1.55;color:var(--text-dim);">${DB.reportCard.comment}</div>
+    </div>
+    <button class="btn btn-outline btn-block" data-act="toast" data-msg="Report card downloaded">${icon('down',15)} Download full report card</button>
+  `;
+}
+function renderAchievements(){
+  const badges = `<div class="card"><div class="quick-row" style="overflow-x:visible;flex-wrap:wrap;">${DB.achievements.map(a=>`
+    <div class="quick-chip" style="min-width:96px;">
+      <div class="qi" style="background:var(--gold-soft);color:var(--gold-bright);width:40px;height:40px;">${icon(a.icon,19)}</div>
+      <span style="font-weight:600;color:var(--text);">${a.title}</span>
+      <span style="font-size:10px;">${a.date}</span>
+    </div>`).join('')}</div></div>`;
+  const notes = `<div class="section-title">Behavior notes</div><div class="card">${DB.behavior.map(b=>`
+    <div class="list-item">
+      <div class="li-icon" style="background:${b.type==='positive'?'var(--gold-soft)':'var(--red-soft)'};color:${b.type==='positive'?'var(--gold-bright)':'var(--red-bright)'};">${icon(b.type==='positive'?'star':'alert',15)}</div>
+      <div class="li-body"><div class="li-title">${b.note}</div><div class="li-sub">${b.by} · ${b.date}</div></div>
+    </div>`).join('')}</div>`;
+  const composeBtn = state.role==='teacher' ? `<button class="btn btn-outline btn-block" data-act="toast" data-msg="Achievement recorded for Leo Martins">${icon('plus',15)} Record achievement / note</button>` : '';
+  return badges+notes+composeBtn;
+}
+function renderAnnouncements(){
+  const composeBtn = (state.role==='teacher'||state.role==='director'||state.role==='manager') ? `<button class="btn btn-outline btn-block" style="margin-bottom:14px;" data-act="toast" data-msg="Announcement posted">${icon('plus',15)} Post announcement</button>` : '';
+  return `${composeBtn}<div class="card" style="padding:0;">${DB.announcements.map((a,i)=>`
+    <div class="list-item" style="padding:14px;${i<DB.announcements.length-1?'border-bottom:1px solid var(--border-soft);':''}">
+      <div class="li-icon" style="background:${catBg(a.cat)};color:${catColor(a.cat)};">${icon(catIcon(a.cat),16)}</div>
+      <div class="li-body">
+        <div class="row-between"><div class="li-title">${a.title}</div></div>
+        <div style="font-size:12px;color:var(--text-dim);margin-top:4px;line-height:1.45;">${a.body}</div>
+        <div class="li-sub" style="margin-top:6px;">${a.author} · ${a.date}</div>
+      </div>
+    </div>`).join('')}</div>`;
+}
+
+/* ---------- Messages (inbox + thread), permission-aware ---------- */
+function threadDisplayName(t,role){
+  if(role==='parent') return t.kind==='staffParent' ? t.staffName : t.teacherName;
+  if(role==='teacher') return t.kind==='teacherParent' ? t.parentName : t.studentName;
+  if(role==='student') return t.teacherName;
+  return t.parentName; // director/manager viewing staffParent threads
+}
+function renderMessagesInbox(){
+  if(state.threadOpen) return renderThread(state.threadOpen);
+  const role = state.role, perm = DB.commPermissions;
+  let threads = [];
+  if(role==='teacher') threads = DB.threads.filter(t=>t.kind==='teacherParent'||t.kind==='teacherStudent');
+  else if(role==='student') threads = perm.teacherStudent ? DB.threads.filter(t=>t.kind==='teacherStudent' && t.studentName===DB.people.student.name) : [];
+  else if(role==='parent') threads = DB.threads.filter(t=>(t.kind==='teacherParent'&&perm.teacherParent)||(t.kind==='staffParent'&&perm.staffParent));
+  else threads = perm.staffParent ? DB.threads.filter(t=>t.kind==='staffParent') : [];
+
+  const approvedNote = role==='student' ? `<div class="card" style="margin-top:0;margin-bottom:12px;"><div style="font-size:11.5px;color:var(--text-faint);line-height:1.5;">${icon('lock',11)} You can only message teachers your school has assigned to your classes. Messages are screened for safety before they're sent.</div></div>` : '';
+
+  if(!threads.length){
+    const why = role==='student' ? 'Direct messaging between teachers and students is currently turned off by your school.'
+      : (role==='director'||role==='manager') ? 'Staff-to-parent messaging is currently turned off.'
+      : 'No conversations yet.';
+    return subHeader('Messages') + approvedNote + emptyState(why);
+  }
+  const list = threads.map(t=>{
+    const name = threadDisplayName(t,role);
+    const sub = t.kind==='teacherParent' ? `Re: ${t.studentName} · ${t.subject}` : t.subject;
+    const last = t.messages[t.messages.length-1];
+    return `<div class="list-item" data-act="openThread" data-id="${t.id}" style="cursor:pointer;">
+      <div class="li-icon" style="background:var(--surface-3);color:var(--gold-bright);">${icon('users',16)}</div>
+      <div class="li-body"><div class="li-title">${name}</div><div class="li-sub">${sub}</div></div>
+      <div class="li-meta">${last.time}${t.reported?`<div style="color:var(--red-bright);margin-top:4px;">${icon('flag',12)}</div>`:''}</div>
+    </div>`;
+  }).join('');
+  return subHeader('Messages') + approvedNote + `<div class="card">${list}</div>`;
+}
+function renderThread(id){
+  const t = DB.threads.find(x=>x.id===id);
+  if(!t) return '';
+  const name = threadDisplayName(t,state.role);
+  const reportBtn = `<div class="icon-btn" style="width:32px;height:32px;color:${t.reported?'var(--red-bright)':'var(--text-dim)'};" data-act="reportThread" data-id="${t.id}">${icon('flag',15)}</div>`;
+  return `
+    ${subHeader(name,'closeThread',reportBtn)}
+    ${t.reported?`<div class="banner-report">${icon('flag',13)} Reported — this conversation is preserved for school review.</div>`:''}
+    <div style="display:flex;flex-direction:column;padding:6px 0 10px 0;">
+      ${t.messages.map((m,i)=>`<div style="display:flex;flex-direction:column;align-items:${m.from==='me'?'flex-end':'flex-start'};">
+        <div class="msg-bubble ${m.from==='me'?'msg-me':'msg-them'}" ${m.from==='me'?`data-act="deleteMsg" data-tid="${t.id}" data-mi="${i}" style="cursor:pointer;"`:''}>${m.text}</div>
+        <div class="msg-time">${m.time}${m.from==='me'?' · tap to delete':''}</div>
+      </div>`).join('')}
+    </div>
+    <div style="position:sticky;bottom:0;display:flex;gap:8px;padding-top:8px;background:var(--bg);">
+      <input type="text" id="msgInput" placeholder="Write a message…" value="${state.msgDraft}" style="margin-top:0;"/>
+      <div class="icon-btn" style="background:var(--gold-soft);color:var(--gold-bright);" data-act="sendMsg" data-id="${t.id}">${icon('send',17)}</div>
+    </div>
+  `;
+}
+
+/* ---------- Communication Rules (director / manager) ---------- */
+function renderCommRules(){
+  const tabs = `<div class="seg">
+    <div class="seg-item ${state.commTab==='routing'?'active':''}" data-act="commTab" data-t="routing">Message Routing</div>
+    <div class="seg-item ${state.commTab==='permissions'?'active':''}" data-act="commTab" data-t="permissions">Permissions</div>
+  </div>`;
+
+  if(state.commTab==='permissions'){
+    const rows = [
+      {key:'teacherStudent',label:'Teacher ↔ Student'},
+      {key:'teacherParent',label:'Teacher ↔ Parent'},
+      {key:'staffParent',label:'Staff ↔ Parent'},
+    ];
+    const list = rows.map(r=>{
+      const on = DB.commPermissions[r.key];
+      return `<div class="list-item">
+        <div class="li-body"><div class="li-title">${r.label}</div></div>
+        <div class="toggle-pill ${on?'toggle-on':'toggle-off'}" data-act="togglePerm" data-k="${r.key}">${icon(on?'check':'x',12)} ${on?'Enabled':'Disabled'}</div>
+      </div>`;
+    }).join('');
+    return `${tabs}<div class="card" style="margin-top:14px;">${list}</div>
+      <div class="card"><div style="font-size:12px;color:var(--text-faint);line-height:1.55;">Turning off a relationship hides direct messaging for that pairing school-wide. Announcements and notifications are not affected.</div></div>
+      <div class="card"><div style="font-size:12px;color:var(--text-faint);line-height:1.55;">${icon('shield',11)} Automatic safety screening of messages and shared photos applies to every relationship and cannot be turned off.</div></div>`;
+  }
+
+  const rows = Object.keys(DB.commRules.defaults).map(key=>{
+    const locked = DB.commRules.locked.includes(key);
+    const mode = modeFromArr(DB.commRules.defaults[key]);
+    return `<div class="list-item">
+      <div class="li-body"><div class="li-title">${DB.commRules.labels[key]}</div></div>
+      ${locked ? `<span class="badge badge-neutral">${icon('lock',10)} Parent only</span>` : `<div class="chip active" style="cursor:pointer;flex-shrink:0;" data-act="cycleRule" data-k="${key}">${modeLabel(mode)}</div>`}
+    </div>`;
+  }).join('');
+
+  const overrides = DB.commRules.overrides.map(o=>`
+    <div class="list-item">
+      <div class="li-body"><div class="li-title">${o.scope}</div><div class="li-sub">${DB.commRules.labels[o.rule]} → ${modeLabel(modeFromArr(o.recipients))}</div></div>
+      <div class="icon-btn" style="width:30px;height:30px;" data-act="removeOverride" data-id="${o.id}">${icon('x',13)}</div>
+    </div>`).join('');
+
+  return `${tabs}
+    <div class="section-title">Default routing</div>
+    <div class="card" style="margin-top:0;">${rows}</div>
+    <div class="section-title">Overrides by grade / class</div>
+    <div class="card">${overrides || `<div style="padding:8px 4px;font-size:12px;color:var(--text-faint);">No overrides yet.</div>`}</div>
+    <button class="btn btn-outline btn-block" data-act="openOverlay" data-ov="addOverride">${icon('plus',15)} Add override</button>
+  `;
+}
+
+/* ---------- Safety & Reports (director / manager) ---------- */
+function renderSafety(){
+  const info = `<div class="card"><div style="font-size:12px;color:var(--text-faint);line-height:1.55;">${icon('lock',11)} Reports are visible only to authorized administrators. Skolix automatically screens messages, shared photos and assignment notes for content that violates our safety guidelines — serious matters are escalated here and, where appropriate, a parent or guardian is notified privately.</div></div>`;
+  if(!DB.safetyReports.length) return emptyState('No safety reports right now.') + info;
+  const typeLabel = t=> t==='auto_block_message'?'Blocked message':t==='auto_block_photo'?'Blocked photo':t==='wellbeing_check'?'Wellbeing check':'User report';
+  const rows = DB.safetyReports.map((r,i)=>`
+    <div class="list-item" style="padding:14px;align-items:flex-start;${i<DB.safetyReports.length-1?'border-bottom:1px solid var(--border-soft);':''}">
+      <div class="li-icon" style="background:${r.severity==='high'?'var(--red-soft)':'var(--surface-3)'};color:${r.severity==='high'?'var(--red-bright)':'var(--text-dim)'};">${icon(r.type==='wellbeing_check'?'shield':'flag',15)}</div>
+      <div class="li-body">
+        <div class="row-between"><div class="li-title">${r.category}</div>${r.severity==='high'?`<span class="badge badge-red">High priority</span>`:`<span class="badge badge-neutral">Medium</span>`}</div>
+        <div style="font-size:12px;color:var(--text-dim);margin-top:5px;line-height:1.5;">${r.summary}</div>
+        <div class="li-sub" style="margin-top:6px;">${typeLabel(r.type)} · ${r.participants} · ${r.date}</div>
+        <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap;">
+          <span class="badge ${r.status==='reviewed'?'badge-green':'badge-red'}" style="cursor:pointer;" data-act="reviewReport" data-id="${r.id}">${r.status==='reviewed'?'Reviewed':'Mark reviewed'}</span>
+          ${(r.severity==='high' && r.studentInvolved && r.studentInvolved!=='—' && !r.parentNotified) ? `<span class="badge badge-gold" style="cursor:pointer;" data-act="notifyParentFromReport" data-id="${r.id}">${icon('lock',9)} Notify parent</span>` : ''}
+          ${r.parentNotified?`<span class="badge badge-neutral">${icon('check',9)} Parent notified</span>`:''}
+        </div>
+      </div>
+    </div>`).join('');
+  return `<div class="card" style="padding:0;">${rows}</div>${info}`;
+}
+
+/* ---------- Private Notices ---------- */
+function renderPrivateNotices(){
+  if(state.role==='parent'){
+    const mine = DB.privateNotices.filter(n=>n.to===DB.people.parent.name);
+    const list = mine.length ? `<div class="card" style="padding:0;">${mine.map((n,i)=>`
+      <div class="list-item" style="padding:14px;align-items:flex-start;${i<mine.length-1?'border-bottom:1px solid var(--border-soft);':''}">
+        <div class="li-icon" style="background:var(--surface-3);color:var(--gold-bright);">${icon('lock',15)}</div>
+        <div class="li-body">
+          <div class="row-between"><div class="li-title">${n.category}</div><span class="badge badge-neutral">${icon('lock',9)} Private</span></div>
+          <div style="font-size:12px;color:var(--text-dim);margin-top:5px;line-height:1.5;">${n.body}</div>
+          <div class="li-sub" style="margin-top:6px;">${n.from}, ${n.fromTitle} · ${n.date}</div>
+        </div>
+      </div>`).join('')}</div>` : emptyState('No private notices right now.');
+    return `${list}<div class="card"><div style="font-size:11.5px;color:var(--text-faint);line-height:1.5;">${icon('lock',11)} Private notices are visible only to you — ${DB.people.student.name} does not see these.</div></div>`;
+  }
+  const sent = DB.privateNotices.map(n=>`
+    <div class="list-item">
+      <div class="li-icon" style="background:var(--surface-3);color:var(--gold-bright);">${icon('lock',15)}</div>
+      <div class="li-body"><div class="li-title">${n.to} · ${n.category}</div><div class="li-sub">${n.date}</div></div>
+    </div>`).join('');
+  return `
+    <button class="btn btn-primary btn-block" data-act="openOverlay" data-ov="composeNotice">${icon('plus',15)} New private notice</button>
+    <div class="section-title">Sent</div>
+    <div class="card">${sent}</div>
+    <div class="card"><div style="font-size:11.5px;color:var(--text-faint);line-height:1.5;">${icon('lock',11)} Private notices go only to the parent or guardian — students are never shown these, even for tuition matters.</div></div>
+  `;
+}
+
+function emptyState(msg){
+  return `<div class="empty"><div class="ei">${icon('calendar',20)}</div><p>${msg}</p></div>`;
+}
+
+/* ============================= OVERLAYS ============================= */
+function renderOverlay(){
+  if(state.overlay==='roleSwitch') return overlayShell('Switch role (demo)', `
+    <div class="role-grid">
+      ${Object.keys(ROLE_META).map(r=>`
+        <div class="role-card ${state.role===r?'active':''}" data-act="switchRole" data-role="${r}">
+          <div class="ri">${icon(ROLE_META[r].icon,16)}</div>
+          <div class="rn">${ROLE_META[r].label}</div>
+          <div class="rd">${DB.people[r].name}</div>
+        </div>`).join('')}
+    </div>
+    <button class="btn btn-outline btn-block" style="margin-top:16px;" data-act="closeOverlay">${icon('x',15)} Close</button>
+    <button class="btn btn-danger-outline btn-block" style="margin-top:10px;" data-act="exitToDiscover">${icon('logout',15)} Switch school / sign out</button>
+  `);
+  if(state.overlay==='notifs') return overlayShell('Notifications', `
+    <div style="display:flex;flex-direction:column;">
+      ${DB.notifications.filter(n=>n.roles.includes(state.role)).map(n=>`
+        <div class="list-item">
+          <div class="li-icon" style="background:var(--surface-3);color:var(--gold-bright);">${icon(n.icon,16)}</div>
+          <div class="li-body"><div class="li-title">${n.title}</div><div class="li-sub">${n.body}</div></div>
+          <div class="li-meta">${n.time}</div>
+        </div>`).join('') || `<div style="padding:18px 4px;text-align:center;font-size:12.5px;color:var(--text-faint);">No notifications right now.</div>`}
+    </div>
+  `);
+  if(state.overlay==='absence') return overlayShell('Submit absence reason', `
+    <label>Date</label>
+    <input type="date" id="absDate" value="2026-09-10"/>
+    <div style="height:12px;"></div>
+    <label>Reason</label>
+    <textarea id="absReason" placeholder="e.g. Doctor's appointment"></textarea>
+    <button class="btn btn-primary btn-block" style="margin-top:16px;" data-act="submitAbsence">${icon('send',15)} Submit for review</button>
+  `);
+  if(state.overlay==='changeDeadline'){
+    const h = DB.homework.find(x=>x.id===state.assignmentOpen);
+    const currentDate = h ? h.due_ts.slice(0,10) : '';
+    return overlayShell('Change deadline', `
+      <label>New due date</label>
+      <input type="date" id="newDueDate" value="${currentDate}"/>
+      <button class="btn btn-primary btn-block" style="margin-top:16px;" data-act="confirmChangeDeadline">${icon('send',15)} Save &amp; notify</button>
+    `);
+  }
+  if(state.overlay==='submitAssignment') return overlayShell('Submit assignment', `
+    <label>Add a note for your teacher (optional)</label>
+    <textarea id="submitNote" placeholder="Anything your teacher should know…"></textarea>
+    <div style="font-size:11px;color:var(--text-faint);margin-top:8px;">${icon('lock',10)} Notes are screened for safety before they're delivered.</div>
+    <button class="btn btn-primary btn-block" style="margin-top:16px;" data-act="confirmSubmitAssignment">${icon('send',15)} Submit</button>
+  `);
+  if(state.overlay==='sharePhoto') return overlayShell('Share a photo', `
+    <label>Caption</label>
+    <input type="text" id="photoCaption" placeholder="Say something about your photo…"/>
+    <div style="font-size:11px;color:var(--text-faint);margin-top:10px;line-height:1.5;">${icon('camera',11)} Demo only — no real file upload. Shared photos are screened and reviewed before appearing publicly.</div>
+    <button class="btn btn-primary btn-block" style="margin-top:16px;" data-act="submitPhoto">${icon('send',15)} Submit for approval</button>
+  `);
+  if(state.overlay==='addEvent'){
+    const cats = ['assignment','exam','event','celebration','holiday','dayOff','important'];
+    return overlayShell('Add to calendar', `
+      <label>Title</label>
+      <input type="text" id="eventTitle" placeholder="e.g. Winter Concert" value="${state.eventForm.title}"/>
+      <div style="height:12px;"></div>
+      <label>Category</label>
+      <div class="chip-row" style="margin:8px 0 0 0;">${cats.map(c=>`<div class="chip ${state.eventForm.cat===c?'active':''}" data-act="pickEventCat" data-c="${c}">${calCat(c).label}</div>`).join('')}</div>
+      <div style="height:14px;"></div>
+      <label>Date</label>
+      <input type="date" id="eventDate" value="${state.eventForm.date || state.calSelected}"/>
+      ${(state.eventForm.cat==='celebration'||state.eventForm.cat==='event') ? `
+      <div class="toggle-pill ${state.eventForm.photoSharing?'toggle-on':'toggle-off'}" style="margin-top:14px;display:inline-flex;" data-act="toggleEventPhotoSharing">${icon(state.eventForm.photoSharing?'check':'x',12)} Allow students to share photos</div>` : ''}
+      <button class="btn btn-primary btn-block" style="margin-top:18px;" data-act="submitEvent">${icon('plus',15)} Add to calendar</button>
+    `);
+  }
+  if(state.overlay==='addOverride'){
+    const scopes = ['Kindergarten – Grade 2','Grades 3–5','Grades 6–8','Grades 9–12'];
+    const rules = Object.keys(DB.commRules.defaults).filter(k=>!DB.commRules.locked.includes(k));
+    return overlayShell('Add override', `
+      <label>Scope</label>
+      <div class="chip-row" style="margin:8px 0 0 0;">${scopes.map(s=>`<div class="chip ${state.overrideForm.scope===s?'active':''}" data-act="pickOverrideScope" data-s="${s}">${s}</div>`).join('')}</div>
+      <div style="height:14px;"></div>
+      <label>Message type</label>
+      <div class="chip-row" style="margin:8px 0 0 0;">${rules.map(r=>`<div class="chip ${state.overrideForm.rule===r?'active':''}" data-act="pickOverrideRule" data-r="${r}">${DB.commRules.labels[r]}</div>`).join('')}</div>
+      <div style="height:14px;"></div>
+      <label>Recipients</label>
+      <div class="chip-row" style="margin:8px 0 0 0;">${['student','parent','both'].map(m=>`<div class="chip ${state.overrideForm.mode===m?'active':''}" data-act="pickOverrideMode" data-m="${m}">${modeLabel(m)}</div>`).join('')}</div>
+      <button class="btn btn-primary btn-block" style="margin-top:18px;" data-act="submitOverride">${icon('plus',15)} Add override</button>
+    `);
+  }
+  if(state.overlay==='composeNotice'){
+    const cats = ['Tuition reminder','Administrative','Behavior','Other'];
+    return overlayShell('New private notice', `
+      <label>Recipient</label>
+      <div class="chip-row" style="margin:8px 0 0 0;">${DB.parentsDirectory.map(p=>`<div class="chip ${state.noticeForm.to===p.id?'active':''}" data-act="pickNoticeTo" data-id="${p.id}">${p.name}</div>`).join('')}</div>
+      <div style="height:14px;"></div>
+      <label>Category</label>
+      <div class="chip-row" style="margin:8px 0 0 0;">${cats.map(c=>`<div class="chip ${state.noticeForm.category===c?'active':''}" data-act="pickNoticeCat" data-c="${c}">${c}</div>`).join('')}</div>
+      <div style="height:14px;"></div>
+      <label>Message</label>
+      <textarea id="noticeBody" placeholder="Write a private message to this parent…">${state.noticeForm.body}</textarea>
+      <div style="font-size:11px;color:var(--text-faint);margin-top:8px;">${icon('lock',10)} Only this parent will see this — not the student.</div>
+      <button class="btn btn-primary btn-block" style="margin-top:16px;" data-act="submitNotice">${icon('send',15)} Send privately</button>
+    `);
+  }
+  if(state.overlay==='reportConcern'){
+    const cats = ['Bullying / harassment','Inappropriate content','Safety concern','Other'];
+    return overlayShell('Report a concern', `
+      <label>Category</label>
+      <div class="chip-row" style="margin:8px 0 0 0;">${cats.map(c=>`<div class="chip ${state.concernForm.category===c?'active':''}" data-act="pickConcernCat" data-c="${c}">${c}</div>`).join('')}</div>
+      <div style="height:14px;"></div>
+      <label>What happened?</label>
+      <textarea id="concernBody" placeholder="Share as much detail as you're comfortable with…">${state.concernForm.body}</textarea>
+      <div style="font-size:11px;color:var(--text-faint);margin-top:8px;">${icon('lock',10)} This goes directly and privately to school administrators.</div>
+      <button class="btn btn-primary btn-block" style="margin-top:16px;" data-act="submitConcern">${icon('send',15)} Send to school administrators</button>
+    `);
+  }
+  return '';
+}
+function overlayShell(title,body){
+  return `<div class="overlay" data-act="overlayBg">
+    <div class="sheet" data-stop="1">
+      <div class="sheet-handle"></div>
+      <div class="row-between"><div class="sheet-title">${title}</div><div class="icon-btn" style="width:32px;height:32px;" data-act="closeOverlay">${icon('x',15)}</div></div>
+      ${body}
+    </div>
+  </div>`;
+}
+
+/* ============================= EVENTS ============================= */
+function bindEvents(root){
+  const codeInput = document.getElementById('schoolCode');
+  if(codeInput) codeInput.oninput = e=>{ state.schoolCodeInput = e.target.value; };
+  const searchInput = document.getElementById('schoolSearch');
+  if(searchInput){
+    searchInput.oninput = e=>{ state.searchQuery = e.target.value; render(); document.getElementById('schoolSearch').focus(); document.getElementById('schoolSearch').selectionStart = document.getElementById('schoolSearch').value.length; };
+  }
+  const joinNameEl = document.getElementById('joinName');
+  if(joinNameEl) joinNameEl.oninput = e=>{ state.joinName = e.target.value; };
+  const joinCodeEl = document.getElementById('joinCode');
+  if(joinCodeEl) joinCodeEl.oninput = e=>{ state.joinCode = e.target.value; };
+  const eventTitleEl = document.getElementById('eventTitle');
+  if(eventTitleEl) eventTitleEl.oninput = e=>{ state.eventForm.title = e.target.value; };
+  const eventDateEl = document.getElementById('eventDate');
+  if(eventDateEl) eventDateEl.oninput = e=>{ state.eventForm.date = e.target.value; };
+  const noticeBodyEl = document.getElementById('noticeBody');
+  if(noticeBodyEl) noticeBodyEl.oninput = e=>{ state.noticeForm.body = e.target.value; };
+  const concernBodyEl = document.getElementById('concernBody');
+  if(concernBodyEl) concernBodyEl.oninput = e=>{ state.concernForm.body = e.target.value; };
+
+  root.querySelectorAll('[data-act]').forEach(el=>{
+    el.addEventListener('click', (e)=>{
+      if(el.dataset.act==='overlayBg' && e.target!==el) return; // clicked inside sheet
+      handleAction(el.dataset, e);
+    });
+  });
+}
+
+/* ===== ACCESS, CREDENTIALS & ACTIVITY ===== */
+DB.acctMode='separate';
+DB.roster=[
+ {id:'r1',name:'Leo Martins',role:'student',grade:'Kindergarten',cls:'K1',user:null,code:null,last:'Today, 8:41',ws:{opened:3,mins:14,attempts:1,score:90,done:true,fast:false}},
+ {id:'r2',name:'Ivy Chen',role:'student',grade:'Grade 6',cls:'6A',user:null,code:null,last:'Today, 7:58',ws:{opened:4,mins:35,attempts:1,score:92,done:true,fast:false}},
+ {id:'r3',name:'Marcus Odei',role:'student',grade:'Grade 8',cls:'8B',user:null,code:null,last:'Yesterday, 19:12',ws:{opened:1,mins:2,attempts:1,score:100,done:true,fast:true}},
+ {id:'r4',name:'Ava Brooks',role:'student',grade:'Grade 11',cls:'11A',user:null,code:null,last:null,ws:{opened:0,mins:0,attempts:0,score:0,done:false,fast:false}},
+ {id:'r5',name:'Priya Nandakumar',role:'teacher',grade:'',cls:'',user:null,code:null,last:'Today, 7:30',ws:null},
+ {id:'r6',name:'Tom Reyes',role:'teacher',grade:'',cls:'',user:null,code:null,last:null,ws:null}
+];
+const CODE_ALPHA='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+function rndStr(n){ const a=new Uint32Array(n); crypto.getRandomValues(a); let s=''; for(let i=0;i<n;i++) s+=CODE_ALPHA[a[i]%32]; return s; }
+function uniqueCreds(){
+  const used=new Set(DB.roster.flatMap(p=>[p.user,p.code]));
+  let u,c;
+  do{ u='SK-'+rndStr(6); }while(used.has(u));
+  do{ c=rndStr(5)+'-'+rndStr(5); }while(used.has(c)||c===u);
+  return {user:u,code:c};
+}
+function gradeNum(g){ return /kinder|pre/i.test(g)?0:(parseInt(String(g).replace(/\D/g,''),10)||0); }
+function isAdminRole(){ return state.role==='director'||state.role==='manager'; }
+function accTabs(cur){
+  const t=[['people','People'],['activity','Activity'],['accounts','Accounts']];
+  return `<div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;">${t.map(x=>`<span class="badge ${cur===x[0]?'badge-gold':'badge-neutral'}" style="cursor:pointer;padding:7px 12px;" data-act="accTab" data-t="${x[0]}">${x[1]}</span>`).join('')}</div>`;
+}
+function renderAccess(){
+  if(!isAdminRole()) return emptyState('Only authorized administrators can open this page.');
+  const tab=state.accTab||'people';
+  const body = tab==='people'?renderPeople():tab==='activity'?renderActivity(DB.roster,true):renderAccounts();
+  return accTabs(tab)+body;
+}
+function renderPeople(){
+  const nw = state.accNew ? `<div class="card" style="border:1px solid var(--gold,#c9a24b);"><div class="li-title">Copy these now</div><div class="li-sub">Codes are shown once and can't be viewed again.</div>${state.accNew.map(x=>`<div style="margin-top:8px;font-size:13px;"><b>${x.name}</b><br>Username ${x.user} · Code ${x.code}</div>`).join('')}<span class="badge badge-neutral" style="cursor:pointer;margin-top:10px;" data-act="dismissNew">Done, hide</span></div>` : '';
+  const rows = DB.roster.map((p,i)=>{
+    const has=!!p.user;
+    const edit = state.accEdit===p.id ? `<div style="display:flex;gap:8px;margin-top:8px;"><input id="customCode" placeholder="Your own code (8-20 letters/numbers)" style="flex:1;background:var(--surface-3);border:1px solid var(--border-soft);color:inherit;border-radius:10px;padding:10px;"><span class="badge badge-gold" style="cursor:pointer;padding:8px 12px;" data-act="saveCode" data-id="${p.id}">Save</span></div>` : '';
+    return `<div class="list-item" style="padding:14px;align-items:flex-start;${i<DB.roster.length-1?'border-bottom:1px solid var(--border-soft);':''}"><div class="li-body"><div class="li-title">${p.name}</div><div class="li-sub">${p.role==='student'?p.grade:'Staff'} · ${has?'Username '+p.user+' · Code hidden':'No credentials yet'}</div><div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap;"><span class="badge badge-neutral" style="cursor:pointer;" data-act="genCreds" data-id="${p.id}">${has?'Regenerate':'Generate'}</span><span class="badge badge-neutral" style="cursor:pointer;" data-act="editCode" data-id="${p.id}">Set own code</span></div>${edit}</div></div>`;
+  }).join('');
+  return `<div class="card"><div style="font-size:12.5px;color:var(--text-dim);line-height:1.55;">Every person gets their own username and code. Skolix generates them at random, never from names, birthdays or grades, and checks each one is unique. Schools can choose to set their own codes instead; those are checked for uniqueness too.</div></div>${nw}<button class="btn btn-primary btn-block" data-act="genAll">Generate for everyone missing one</button><div class="card" style="padding:0;margin-top:12px;">${rows}</div>`;
+}
+function renderActivity(list,admin){
+  const seen=list.filter(p=>p.last).length;
+  const frozen=admin?DB.threads.filter(t=>t.frozen):[];
+  const fz = admin ? `<div class="section-title">Conversations under review</div>`+(frozen.length?`<div class="card">${frozen.map(t=>`<div class="row-between" style="padding:6px 0;"><div><div class="li-title">${t.studentName||('Thread '+t.id)}</div><div class="li-sub">Paused, record preserved</div></div><span class="badge badge-gold" style="cursor:pointer;" data-act="resumeThread" data-id="${t.id}">Resume</span></div>`).join('')}</div>`:emptyState('No conversations are paused.')) : '';
+  const rows = list.map((p,i)=>{
+    const w=p.ws;
+    const wl = w ? `<div class="li-sub" style="margin-top:4px;">Worksheet: opened ${w.opened}x · ${w.mins} min · ${w.attempts} attempt${w.attempts===1?'':'s'} · ${w.done?'submitted, score '+w.score+'%':'not submitted'}</div>${w.fast?`<span class="badge badge-gold" style="margin-top:6px;">Very fast finish: for teacher review, not proof of cheating</span>`:''}` : '';
+    return `<div class="list-item" style="padding:14px;align-items:flex-start;${i<list.length-1?'border-bottom:1px solid var(--border-soft);':''}"><div class="li-body"><div class="row-between"><div class="li-title">${p.name}</div>${p.last?`<span class="badge badge-green">Signed in</span>`:`<span class="badge badge-red">Never signed in</span>`}</div><div class="li-sub">${p.last?'Last access: '+p.last:'No access yet'}</div>${wl}</div></div>`;
+  }).join('');
+  return `<div class="card"><div class="row-between"><div><b>${seen}</b> signed in</div><div><b>${list.length-seen}</b> not yet</div></div><div style="font-size:12px;color:var(--text-faint);margin-top:8px;line-height:1.5;">Activity inside Skolix only. Location is never tracked.</div></div><div class="card" style="padding:0;">${rows}</div>${fz}`;
+}
+function renderWsResults(){
+  const mine=DB.roster.filter(p=>p.role==='student'&&['6A','8B'].includes(p.cls));
+  return subHeader('Worksheet Results')+`<div class="card"><div style="font-size:12.5px;color:var(--text-dim);line-height:1.5;">You only see students in the classes you teach.</div></div>`+renderActivity(mine,false);
+}
+function renderAccounts(){
+  const m=DB.acctMode;
+  const opt=(k,t,s)=>`<div class="card card-tight" style="cursor:pointer;${m===k?'border:1px solid var(--gold,#c9a24b);':''}" data-act="setAcctMode" data-t="${k}"><div class="li-title">${t}${m===k?' ✓':''}</div><div class="li-sub">${s}</div></div>`;
+  const n=DB.roster.filter(p=>p.role==='student'&&gradeNum(p.grade)>=7).length;
+  const warn=(m==='shared'&&n)?`<div class="card"><span class="badge badge-gold">Heads up</span><div style="font-size:12.5px;color:var(--text-dim);margin-top:8px;line-height:1.5;">${n} student${n>1?'s are':' is'} in Grade 7+ on a shared parent/child account. Separate accounts are recommended at that age.</div></div>`:'';
+  const rec=[['Preschool & Kindergarten','Parent-controlled account: strongly recommended'],['Grade 6','Consider a separate student account, with strong parent involvement'],['Grades 7-8','Separate student accounts recommended'],['Grades 9-12','Separate student and parent accounts: strongly recommended']];
+  return `<div class="section-title">Account structure</div>${opt('shared','Shared parent/child account','One login, controlled by the parent')}${opt('separate','Separate parent and student accounts','Parent stays linked and still receives school, academic, attendance and safety updates')}${warn}<div class="section-title">Recommended by age</div><div class="card">${rec.map(r=>`<div style="padding:6px 0;"><div class="li-title">${r[0]}</div><div class="li-sub">${r[1]}</div></div>`).join('')}</div><div style="font-size:12px;color:var(--text-faint);line-height:1.5;">These are recommendations. Your choice is never overridden unless a safety or legal rule requires it.</div>`;
+}
+
+/* ===== ANONYMOUS FEEDBACK (school-controlled) ===== */
+DB.feedback={enabled:false,allow:{student:true,parent:true,teacher:true},items:[
+ {id:1,text:'The pickup line is confusing and unsafe in the mornings.',via:'Anonymous',from:'parent',date:'2 days ago',read:false},
+ {id:2,text:'I would love more time between classes to get to my locker.',via:'Google account',from:'student',date:'5 days ago',read:true}]};
+function feedbackCard(role){
+  const f=DB.feedback;
+  if(role==='director'||role==='manager') return [{id:'fbAdmin',t:'Anonymous Feedback',s:f.enabled?'On · '+f.items.filter(x=>!x.read).length+' new':'Off',ic:'megaphone'}];
+  return (f.enabled&&f.allow[role]) ? [{id:'fbSubmit',t:'Say What You Think',s:'Private, anonymous feedback',ic:'megaphone'}] : [];
+}
+function fbToggleRow(label,sub,on,act,extra){
+  return `<div class="row-between" style="padding:10px 0;"><div><div class="li-title">${label}</div>${sub?`<div class="li-sub">${sub}</div>`:''}</div><span class="badge ${on?'badge-green':'badge-neutral'}" style="cursor:pointer;padding:7px 12px;" data-act="${act}" ${extra||''}>${on?'On':'Off'}</span></div>`;
+}
+function renderFeedbackAdmin(){
+  if(!isAdminRole()) return emptyState('Only school leaders can manage this.');
+  const f=DB.feedback;
+  const groups=['student','parent','teacher'].map(r=>fbToggleRow(r[0].toUpperCase()+r.slice(1)+'s can comment','',f.allow[r],'fbAllow','data-r="'+r+'"')).join('');
+  const inbox=f.items.length?`<div class="card" style="padding:0;">${f.items.map((x,i)=>`<div class="list-item" style="padding:14px;align-items:flex-start;${i<f.items.length-1?'border-bottom:1px solid var(--border-soft);':''}"><div class="li-body"><div style="font-size:13px;line-height:1.5;">${x.text}</div><div class="li-sub" style="margin-top:6px;">${x.from} · ${x.via} · ${x.date}</div><span class="badge ${x.read?'badge-neutral':'badge-red'}" style="cursor:pointer;margin-top:8px;" data-act="fbRead" data-id="${x.id}">${x.read?'Read':'Mark read'}</span></div></div>`).join('')}</div>`:emptyState('No feedback yet.');
+  return `<div class="card">${fbToggleRow('Anonymous feedback','Lets people share honest thoughts privately with school leaders',f.enabled,'fbEnable')}<div style="font-size:12px;color:var(--text-faint);line-height:1.5;">Off by default. Only the director, manager or owner can turn it on. Feedback goes to this private inbox, not a public board.</div></div>${f.enabled?`<div class="section-title">Who can comment</div><div class="card">${groups}</div><div class="section-title">Inbox</div>${inbox}`:''}`;
+}
+function renderFeedbackSubmit(){
+  const f=DB.feedback;
+  if(!f.enabled||!f.allow[state.role]) return emptyState('Your school has not turned this on.');
+  const via=state.fbVia||'Anonymous';
+  const opts=['Anonymous','Google account','Other account'].map(v=>`<span class="badge ${via===v?'badge-gold':'badge-neutral'}" style="cursor:pointer;padding:7px 12px;" data-act="fbVia" data-v="${v}">${v}</span>`).join('');
+  return `<div class="card"><div class="li-title">How do you want to sign in?</div><div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;">${opts}</div><div style="font-size:12px;color:var(--text-faint);margin-top:10px;line-height:1.5;">Your name is not shown to teachers or other families. If something you write suggests someone is in danger, the school safety team may need to follow up.</div></div><div class="card"><textarea id="fbText" placeholder="Say what you really think, respectfully…"></textarea></div><button class="btn btn-primary btn-block" data-act="fbSend">Send privately</button>`;
+}
+
+function handleAction(d){
+  switch(d.act){
+    /* discovery / public pages */
+    /* access, credentials, activity */
+    case 'accTab': setState({accTab:d.t, accEdit:null}); break;
+    case 'dismissNew': state.accNew=null; render(); break;
+    case 'editCode': setState({accEdit:d.id}); break;
+    case 'genCreds': { const p=DB.roster.find(x=>x.id===d.id); if(p && isAdminRole()){ Object.assign(p,uniqueCreds()); state.accNew=[{name:p.name,user:p.user,code:p.code}]; state.accEdit=null; } render(); break; }
+    case 'genAll': { if(isAdminRole()){ const made=[]; DB.roster.filter(p=>!p.user).forEach(p=>{ Object.assign(p,uniqueCreds()); made.push({name:p.name,user:p.user,code:p.code}); }); state.accNew=made.length?made:null; } render(); break; }
+    case 'saveCode': {
+      const el=document.getElementById('customCode'); const v=el?el.value.trim().toUpperCase():''; const p=DB.roster.find(x=>x.id===d.id);
+      if(!p||!isAdminRole()) break;
+      if(!/^[A-Z0-9-]{8,20}$/.test(v)){ showToast('Use 8-20 letters or numbers'); break; }
+      if(DB.roster.some(x=>x.id!==p.id&&(x.code===v||x.user===v))){ showToast('That code is already in use. Choose another.'); break; }
+      if(!p.user) p.user=uniqueCreds().user;
+      p.code=v; state.accNew=[{name:p.name,user:p.user,code:v}]; state.accEdit=null; showToast('Custom code saved'); break;
+    }
+    case 'setAcctMode': if(isAdminRole()) DB.acctMode=d.t; render(); break;
+    case 'resumeThread': { const t=DB.threads.find(x=>x.id==d.id); if(t&&isAdminRole()) t.frozen=false; render(); break; }
+    /* anonymous feedback */
+    case 'fbEnable': if(isAdminRole()) DB.feedback.enabled=!DB.feedback.enabled; render(); break;
+    case 'fbAllow': if(isAdminRole()) DB.feedback.allow[d.r]=!DB.feedback.allow[d.r]; render(); break;
+    case 'fbRead': { const x=DB.feedback.items.find(i=>i.id==d.id); if(x&&isAdminRole()) x.read=!x.read; render(); break; }
+    case 'fbVia': setState({fbVia:d.v}); break;
+    case 'fbSend': {
+      const f=DB.feedback; const el=document.getElementById('fbText'); const v=el?el.value.trim():'';
+      if(!f.enabled||!f.allow[state.role]){ showToast('This is not available right now'); break; }
+      if(!v){ showToast('Write something first'); break; }
+      const scan=scanContent(v); const via=state.fbVia||'Anonymous';
+      if(scan.flag==='blocked'){
+        createSafetyReport({type:'auto_block_message',severity:'high',category:'Blocked anonymous feedback',summary:v,participants:'Anonymous feedback ('+state.role+')',studentInvolved:'—',reporter:'System (automatic)'});
+        showToast("Not sent — it may break Skolix's safety rules. Please rewrite it respectfully."); break;
+      }
+      f.items.unshift({id:Date.now(),text:v,via:via,from:state.role,date:'Just now',read:false});
+      if(scan.flag==='wellbeing') createSafetyReport({type:'wellbeing_check',severity:'high',category:'Wellbeing check',summary:v,participants:'Anonymous feedback ('+state.role+')',studentInvolved:'—',reporter:'System (automatic)'});
+      showToast('Sent privately. Thank you for sharing.'); break;
+    }
+    case 'viewSchool': setState({stage:'schoolPublic', selectedSchool:d.id, publicTab:'announcements'}); break;
+    case 'backToDiscover': setState({stage:'discover', selectedSchool:null}); break;
+    case 'pubTab': setState({publicTab:d.t}); break;
+    case 'openJoin': {
+      const sch = DB.schools.find(s=>s.id===(d.id||state.selectedSchool)) || DB.schools[0];
+      setState({stage:'joinForm', selectedSchool:sch.id, joinCode: state.joinCode || sch.code, joinCampus: state.joinCampus && sch.campuses.some(c=>c.id===state.joinCampus) ? state.joinCampus : sch.campuses[0].id});
+      break;
+    }
+    case 'backToSchool': setState({stage:'schoolPublic'}); break;
+    case 'pickJoinRole': setState({joinRole:d.role}); break;
+    case 'pickJoinCampus': setState({joinCampus:d.c}); break;
+    case 'submitJoin': {
+      const nameEl = document.getElementById('joinName');
+      const codeEl = document.getElementById('joinCode');
+      const name = nameEl ? nameEl.value.trim() : '';
+      const code = codeEl ? codeEl.value.trim() : '';
+      state.joinName = name;
+      state.joinCode = code;
+      const school = DB.schools.find(x=>x.id===state.selectedSchool) || DB.schools[0];
+      const campus = school.campuses.find(c=>c.id===state.joinCampus) || school.campuses[0];
+      if(!name){ showToast('Enter your full name to continue'); break; }
+      if(!code){ showToast('Enter the school code to continue'); break; }
+      if(code.toUpperCase() !== school.code.toUpperCase()){ showToast("That code doesn't match " + school.name); break; }
+      setState({stage:'verifying'});
+      setTimeout(()=>{
+        setState({ joined:true, role:state.joinRole, screen:'home', stage:'discover' });
+        showToast("You're verified — welcome to " + school.name + " · " + campus.name);
+      }, 1400);
+      break;
+    }
+    case 'openSignIn': setState({stage:'signIn'}); break;
+    case 'backFromSignIn': setState({stage: state.selectedSchool ? 'schoolPublic' : 'discover'}); break;
+    case 'pickSignInRole': setState({signInRole:d.role}); break;
+    case 'submitSignIn': setState({joined:true, role:state.signInRole, screen:'home', stage:'discover'}); break;
+    case 'exitToDiscover': setState({joined:false, stage:'discover', selectedSchool:null, overlay:null}); break;
+
+    /* private app */
+    case 'nav':
+      if(d.hub){ setState({screen:'hub', hubOpen:d.hub}); }
+      else { setState({screen:d.screen, hubOpen:null, assignmentOpen:null, threadOpen:null}); }
+      break;
+    case 'schedView': setState({scheduleView:d.v}); break;
+    case 'pickDay': setState({scheduleDay:d.d}); break;
+    case 'pickDate': setState({calSelected:d.date}); break;
+    case 'calNav': {
+      let m = state.calMonth + parseInt(d.dir,10);
+      let y = state.calYear;
+      if(m<0){ m=11; y--; } if(m>11){ m=0; y++; }
+      setState({calMonth:m, calYear:y});
+      break;
+    }
+    case 'learnTab': setState({learnTab:d.t}); break;
+    case 'openAssignment': setState({assignmentOpen:parseInt(d.id,10)}); break;
+    case 'closeAssignment': setState({assignmentOpen:null}); break;
+    case 'confirmChangeDeadline': {
+      const dateEl = document.getElementById('newDueDate');
+      const h = DB.homework.find(x=>x.id===state.assignmentOpen);
+      if(h && dateEl && dateEl.value){
+        h.due_ts = dateEl.value + 'T23:59:00';
+        const dt = new Date(h.due_ts);
+        h.due = dt.toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'});
+      }
+      setState({overlay:null});
+      showToast('Deadline updated — students notified');
+      break;
+    }
+    case 'confirmSubmitAssignment': {
+      const noteEl = document.getElementById('submitNote');
+      const note = noteEl ? noteEl.value.trim() : '';
+      const hw = DB.homework.find(x=>x.id===state.assignmentOpen);
+      let blocked = false;
+      if(note){
+        const scan = scanContent(note);
+        if(scan.flag==='blocked'){
+          blocked = true;
+          createSafetyReport({type:'auto_block_message', severity:'high', category:'Blocked assignment note', summary:note, participants:`${DB.people.student.name} → ${hw?hw.teacher:'Teacher'}`, studentInvolved:DB.people.student.name, reporter:'System (automatic screening)'});
+        } else if(scan.flag==='wellbeing'){
+          createSafetyReport({type:'wellbeing_check', severity:'high', category:'Wellbeing check', summary:note, participants:`${DB.people.student.name} → ${hw?hw.teacher:'Teacher'}`, studentInvolved:DB.people.student.name, reporter:'System (automatic screening)'});
+        }
+      }
+      if(hw) hw.status='submitted';
+      setState({overlay:null});
+      showToast(blocked ? "Assignment submitted — your note couldn't be sent as it may violate safety guidelines." : ('Assignment submitted' + (note?' with your note':'')));
+      break;
+    }
+    case 'sharePhoto': setState({overlay:'sharePhoto'}); break;
+    case 'submitPhoto': {
+      const capEl = document.getElementById('photoCaption');
+      const cap = capEl ? capEl.value.trim() : '';
+      if(!cap){ showToast('Add a short caption first'); break; }
+      const scan = scanContent(cap);
+      const dayEvents = DB.calendarEvents[state.calSelected] || [];
+      const ev = dayEvents.find(e=>e.photoSharing);
+      if(scan.flag==='blocked'){
+        createSafetyReport({type:'auto_block_photo', severity:'high', category:'Blocked photo content', summary:cap, participants:DB.people[state.role].name, studentInvolved: state.role==='teacher'?'—':DB.people.student.name, reporter:'System (automatic screening)'});
+        setState({overlay:null});
+        showToast("That photo couldn't be shared — it may violate Skolix's safety guidelines. Our safety team has been notified.");
+        break;
+      }
+      if(ev){ ev.photos = ev.photos || []; ev.photos.push({caption:cap, grad:'linear-gradient(135deg,#8a7a4a,#3a3020)', status:'pending'}); }
+      if(scan.flag==='wellbeing'){
+        createSafetyReport({type:'wellbeing_check', severity:'high', category:'Wellbeing check', summary:cap, participants:DB.people[state.role].name, studentInvolved: DB.people.student.name, reporter:'System (automatic screening)'});
+      }
+      setState({overlay:null});
+      showToast('Photo submitted for approval');
+      break;
+    }
+    case 'pickEventCat': {
+      const ps = (d.c==='celebration'||d.c==='event') ? state.eventForm.photoSharing : false;
+      setState({eventForm:{...state.eventForm, cat:d.c, photoSharing:ps}});
+      break;
+    }
+    case 'toggleEventPhotoSharing': setState({eventForm:{...state.eventForm, photoSharing:!state.eventForm.photoSharing}}); break;
+    case 'submitEvent': {
+      const titleEl = document.getElementById('eventTitle');
+      const dateEl = document.getElementById('eventDate');
+      const title = titleEl ? titleEl.value.trim() : state.eventForm.title;
+      const date = dateEl ? dateEl.value : state.eventForm.date;
+      if(!title){ showToast('Give the event a title'); break; }
+      if(!date){ showToast('Pick a date'); break; }
+      DB.calendarEvents[date] = DB.calendarEvents[date] || [];
+      const entry = {t:title, cat: state.eventForm.cat};
+      if(state.eventForm.photoSharing){ entry.photoSharing = true; entry.photos = []; }
+      DB.calendarEvents[date].push(entry);
+      setState({overlay:null, calSelected:date, eventForm:{title:"",cat:"event",date:"",photoSharing:false}});
+      showToast('Added to the school calendar');
+      break;
+    }
+    case 'openHub': setState({hubOpen:d.h, threadOpen:null}); break;
+    case 'closeHub': setState({hubOpen:null, threadOpen:null}); break;
+    case 'openOverlay': setState({overlay:d.ov}); break;
+    case 'closeOverlay': setState({overlay:null}); break;
+    case 'overlayBg': setState({overlay:null}); break;
+    case 'switchRole': setState({role:d.role, screen:'home', hubOpen:null, assignmentOpen:null, threadOpen:null, overlay:null}); break;
+    case 'setAtt': {
+      const s = state.draftAttendance.find(x=>x.id==d.id);
+      if(s) s.status = d.s;
+      render();
+      break;
+    }
+    case 'saveAttendance': setState({overlay:null}); showToast('Attendance saved · parents notified'); break;
+    case 'submitAbsence': {
+      const reasonEl = document.getElementById('absReason');
+      state.overlay=null;
+      showToast('Absence reason submitted for review');
+      break;
+    }
+
+    /* messaging + safety */
+    case 'openThread': setState({threadOpen:d.id}); break;
+    case 'closeThread': setState({threadOpen:null}); break;
+    case 'deleteMsg': {
+      const t = DB.threads.find(x=>x.id===d.tid);
+      if(t) t.messages.splice(parseInt(d.mi,10),1);
+      render();
+      break;
+    }
+    case 'reportThread': {
+      const t = DB.threads.find(x=>x.id===d.id);
+      if(t && !t.reported){
+        t.reported = true;
+        createSafetyReport({type:'user_report', severity:'medium', category:'Reported conversation', summary:'A user reported this conversation for review.', participants: threadDisplayName(t,state.role) + ' thread', studentInvolved: t.studentName || '—', reporter: `${DB.people[state.role].name} (${ROLE_META[state.role].label})`});
+        showToast('Reported to school administration for review.');
+      }
+      render();
+      break;
+    }
+    case 'sendMsg': {
+      const input = document.getElementById('msgInput');
+      const val = input ? input.value.trim() : '';
+      const t = DB.threads.find(x=>x.id===d.id);
+      if(val && t && t.frozen){ showToast('This conversation is paused while the school reviews it.'); break; }
+      if(val && t){
+        const scan = scanContent(val);
+        const recipient = threadDisplayName(t,state.role);
+        if(scan.flag==='blocked'){
+          createSafetyReport({type:'auto_block_message', severity:'high', category:'Blocked message content', summary:val, participants:`${DB.people[state.role].name} → ${recipient}`, studentInvolved: t.studentName || '—', reporter:'System (automatic screening)'});
+          t.frozen=true;
+          state.msgDraft='';
+          showToast("Message blocked — it may violate Skolix's safety guidelines. Our safety team has been notified.");
+        } else {
+          t.messages.push({from:'me',text:val,time:'Now'});
+          state.msgDraft='';
+          if(scan.flag==='wellbeing'){
+            createSafetyReport({type:'wellbeing_check', severity:'high', category:'Wellbeing check', summary:val, participants:`${DB.people[state.role].name} → ${recipient}`, studentInvolved: t.studentName || '—', reporter:'System (automatic screening)'});
+            showToast("Message sent. If you're going through something difficult, you're not alone — support is available at school.");
+          }
+        }
+      }
+      render();
+      break;
+    }
+    case 'reviewReport': {
+      const r = DB.safetyReports.find(x=>x.id==d.id);
+      if(r) r.status = r.status==='reviewed' ? 'open' : 'reviewed';
+      render();
+      break;
+    }
+    case 'notifyParentFromReport': {
+      const r = DB.safetyReports.find(x=>x.id==d.id);
+      if(r && !r.parentNotified){
+        const parentEntry = DB.parentsDirectory.find(p=>p.student===r.studentInvolved);
+        const parentName = parentEntry ? parentEntry.name : DB.people.parent.name;
+        DB.privateNotices.unshift({id:Date.now(), to:parentName, toRole:'parent', relatedStudent:r.studentInvolved, from:DB.people[state.role].name, fromTitle:DB.people[state.role].title, category:'Safety notice', body:`Our team reviewed an account safety matter involving ${r.studentInvolved} recently. Please contact the school office if you'd like to discuss further.`, date:'Just now'});
+        r.parentNotified = true;
+        showToast(`${parentName} notified privately`);
+      }
+      render();
+      break;
+    }
+
+    /* communication rules (director / manager) */
+    case 'commTab': setState({commTab:d.t}); break;
+    case 'togglePerm': DB.commPermissions[d.k] = !DB.commPermissions[d.k]; render(); break;
+    case 'cycleRule': {
+      const cur = modeFromArr(DB.commRules.defaults[d.k]);
+      DB.commRules.defaults[d.k] = arrFromMode(nextMode(cur));
+      render();
+      break;
+    }
+    case 'removeOverride': DB.commRules.overrides = DB.commRules.overrides.filter(o=>o.id!=d.id); render(); break;
+    case 'pickOverrideScope': setState({overrideForm:{...state.overrideForm, scope:d.s}}); break;
+    case 'pickOverrideRule': setState({overrideForm:{...state.overrideForm, rule:d.r}}); break;
+    case 'pickOverrideMode': setState({overrideForm:{...state.overrideForm, mode:d.m}}); break;
+    case 'submitOverride': {
+      DB.commRules.overrides.push({id:Date.now(), scope:state.overrideForm.scope, rule:state.overrideForm.rule, recipients:arrFromMode(state.overrideForm.mode)});
+      setState({overlay:null});
+      showToast('Override added');
+      break;
+    }
+
+    /* private notices */
+    case 'pickNoticeTo': setState({noticeForm:{...state.noticeForm, to:d.id}}); break;
+    case 'pickNoticeCat': setState({noticeForm:{...state.noticeForm, category:d.c}}); break;
+    case 'submitNotice': {
+      const bodyEl = document.getElementById('noticeBody');
+      const body = bodyEl ? bodyEl.value.trim() : state.noticeForm.body;
+      const p = DB.parentsDirectory.find(x=>x.id===state.noticeForm.to) || DB.parentsDirectory[0];
+      if(!body){ showToast('Write a message first'); break; }
+      DB.privateNotices.unshift({id:Date.now(), to:p.name, toRole:'parent', relatedStudent:p.student, from:DB.people[state.role].name, fromTitle:DB.people[state.role].title, category:state.noticeForm.category, body, date:'Just now'});
+      setState({overlay:null, noticeForm:{to:state.noticeForm.to, category:state.noticeForm.category, body:''}});
+      showToast(`Private notice sent to ${p.name} — not visible to ${p.student}`);
+      break;
+    }
+
+    /* report a concern */
+    case 'pickConcernCat': setState({concernForm:{...state.concernForm, category:d.c}}); break;
+    case 'submitConcern': {
+      const bodyEl = document.getElementById('concernBody');
+      const body = bodyEl ? bodyEl.value.trim() : state.concernForm.body;
+      if(!body){ showToast('Add a few details first'); break; }
+      createSafetyReport({type:'user_report', severity:'high', category:state.concernForm.category, summary:body, participants:`${DB.people[state.role].name} (${ROLE_META[state.role].label})`, studentInvolved: state.role==='student'||state.role==='parent' ? DB.people.student.name : '—', reporter:`${DB.people[state.role].name} (${ROLE_META[state.role].label})`});
+      setState({overlay:null, concernForm:{category:state.concernForm.category, body:''}});
+      showToast('Report sent to school administrators — thank you for speaking up.');
+      break;
+    }
+
+    case 'toast': showToast(d.msg); break;
+  }
+}
+
+render();
+</script>
+</body>
+</html>
